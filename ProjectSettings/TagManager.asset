@@ -20,7 +20,7 @@ TagManager:
   - Pickups
   - Enemy
   - Player
-  - 
+  - HUD
   - 
   - 
   - 
@@ -54,4 +54,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 3136270049
+    locked: 0
+  - name: Hud
+    uniqueID: 1606701549
     locked: 0

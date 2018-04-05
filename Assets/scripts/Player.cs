@@ -66,8 +66,9 @@ public class Player : MonoBehaviour {
 	public Health GetHealth(){
 		return health;
 	}
-	
+
 	public void Reset(){
+		health.Reset();
 		velocity = Vector2.zero;
 		canMove = true;
 	}

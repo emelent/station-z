@@ -18,7 +18,11 @@ public class Enemy : MonoBehaviour {
 
 	public void Reset(){
 		// reset hp
-		// reset position
+		health.Reset();
+	}
+
+	public Health GetHealth(){
+		return health;
 	}
 
 	public Vector2 GetVelocity(){

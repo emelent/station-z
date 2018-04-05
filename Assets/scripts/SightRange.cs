@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyVision : MonoBehaviour {
+public class SightRange : MonoBehaviour {
 
 	// [HideInInspector]
 	public Transform target;

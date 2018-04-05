@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour {
+public class AttackRange : MonoBehaviour {
 
-	public Player target;
+	public Transform target;
 
 	void OnTriggerEnter2D(Collider2D collider){
 		if(collider.tag == "Player"){
-			target = collider.GetComponent<Player>();
+			target = collider.transform;
 
 			// enter attack mode
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider){
+		if(target == null)
+			return;
+
 		if(collider.gameObject == target.gameObject){
 			target = null;
 			// get out of attack mode

@@ -7,26 +7,44 @@ public class Health : MonoBehaviour {
 	public float maxHealth= 100f; 
 	public float drainAmount = 0.1f;
 	public float drainRate = 0f;
+	public Transform HealthBar;
 
 	private float mDrainTime = 0f;
+	[SerializeField]
 	private float mHealth;
+
+	private float mOrigHealthBarScale;
 
 	void Awake(){
 		mHealth = maxHealth;
+		if(HealthBar){
+			mOrigHealthBarScale = HealthBar.localScale.x;
+		}
 	}
 
 	
 	// Update is called once per frame
 	void Update () {
-		if(drainRate == 0f) return;
-		
-		if(Time.time > mDrainTime){
+		if(Time.time > mDrainTime && drainRate != 0f){
 			mDrainTime = Time.time + 1/drainRate;
 			Damage(drainAmount);
 		}
+
+		if(HealthBar){	
+			HealthBar.transform.localScale = new Vector3(
+				mHealth/maxHealth * mOrigHealthBarScale,
+				HealthBar.transform.localScale.y,
+				HealthBar.transform.localScale.z
+			);
+		}
 	}
 
+	public void Reset(){
+		mHealth = maxHealth;
+	}
+	
 	public void Damage(float amount){
+		print("Damaging by " + amount + "HP.");
 		mHealth = Mathf.Clamp(mHealth - amount, 0, maxHealth);
 	}
 
