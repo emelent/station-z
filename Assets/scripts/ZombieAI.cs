@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Pathfinding;
 using UnityEngine;
 
 
 [RequireComponent (typeof(Rigidbody2D))]
-[RequireComponent (typeof(Seeker))]
 [RequireComponent (typeof(Enemy))]
 
 public class ZombieAI : MonoBehaviour {
@@ -22,7 +20,6 @@ public class ZombieAI : MonoBehaviour {
 
 	[Header("Chase Config")]
 	public float updateRate = 2f;
-	public float nextWayPointDistance = 3f;
 
 	[Header("Attack Config")]
 	public float attackDamage = 10f;
@@ -34,24 +31,16 @@ public class ZombieAI : MonoBehaviour {
 	public AttackRange attack;
 
 
-	bool pathIsEnded = false;
-	int currentWaypoint = 0;
 	float roamDistance;
 	float roamTravelled = 0f;
 
 	Transform forwardPoint;	
 	Enemy enemy;
 	Rigidbody2D rb;
-	Seeker seeker;
-	Path path;
-
 	void Awake(){
 		rb = GetComponent<Rigidbody2D>();
 		enemy = GetComponent<Enemy>();
-		seeker = GetComponent<Seeker>();
-
 		forwardPoint = transform.Find("ForwardPoint");
-		
 		chooseRandomDirection();
 	}
 
@@ -67,7 +56,7 @@ public class ZombieAI : MonoBehaviour {
 				if(vision.target){
 					aiState = State.Chasing;
 					print("Start chasing");
-					StartCoroutine(updatePath());
+					StartCoroutine(followPlayer());
 				}
 				break;
 
@@ -84,7 +73,7 @@ public class ZombieAI : MonoBehaviour {
 				if(attack.target == null){
 					aiState = State.Chasing;
 					print("Go back to chasing");
-					StartCoroutine(updatePath());
+					StartCoroutine(followPlayer());
 				}
 				break;
 		}
@@ -96,7 +85,7 @@ public class ZombieAI : MonoBehaviour {
 				Roam();
 				break;
 			case State.Chasing:
-				Chase();
+				// Chase();
 				break;
 		}
 
@@ -122,31 +111,6 @@ public class ZombieAI : MonoBehaviour {
 		enemy.SetVelocity(direction * -enemy.movementSpeed * Time.deltaTime);
 	}
 
-	void OnPathComplete(Path p){
-		print("Path received: " + p.error);
-		if(!p.error){
-			path = p;
-			currentWaypoint = 0;
-		}
-	}
-
-	IEnumerator updatePath(){
-		if(!vision.target){
-			print("back to roaming");
-			aiState = State.Roaming;
-			yield return false;
-		}
-		print("Updating path to: " + vision.target.position);
-		seeker.StartPath(
-			transform.position,
-			vision.target.position,
-			OnPathComplete
-		);
-		yield return new WaitForSeconds(1f/updateRate);
-		if(aiState == State.Chasing)
-			StartCoroutine(updatePath());
-	}
-
 	IEnumerator attackTarget(){
 		if(!attack.target){
 			print("No target");
@@ -161,37 +125,23 @@ public class ZombieAI : MonoBehaviour {
 			StartCoroutine(attackTarget());
 	}
 
-	void Chase(){
-		if(path == null){
-			return;
-		}
 
-		if(currentWaypoint >= path.vectorPath.Count){
-			if(pathIsEnded)
-				return;
-			
-			print("End of path  reached.");
-			pathIsEnded = true;
-			return;
-		}
+	IEnumerator followPlayer(){
 
-		pathIsEnded = false;
-		Vector3 dir = path.vectorPath[currentWaypoint] - transform.position;
+		Vector2 dir = vision.target.position - transform.position;
 		dir.Normalize();
-		dir *= enemy.movementSpeed * Time.deltaTime * chaseFactor;
-		
 		// update rotation
 		transform.rotation = Quaternion.FromToRotation(
 			Vector3.up,
 			dir
 		);
+
 		//  Move the AI
-		enemy.SetVelocity(dir);
-		float dist = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
-		if(dist < nextWayPointDistance){
-			currentWaypoint ++;
-			return;
-		}
+		enemy.SetVelocity(dir * enemy.movementSpeed * Time.deltaTime * chaseFactor);
+		yield return new WaitForSeconds(1 / updateRate);
+
+		if(aiState == State.Chasing)
+			StartCoroutine(followPlayer());
 	}
 
 	void Roam(){

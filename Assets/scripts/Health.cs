@@ -44,8 +44,9 @@ public class Health : MonoBehaviour {
 	}
 	
 	public void Damage(float amount){
-		print("Damaging by " + amount + "HP.");
 		mHealth = Mathf.Clamp(mHealth - amount, 0, maxHealth);
+
+		// TODO: kill at zero hp
 	}
 
 	public void Heal(float amount){
