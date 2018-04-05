@@ -2,30 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour {
-
+	public bool allowedToMove = true;
 	public float movementSpeed = 200f;
 	public float rotateStep = 1f;
-	
 
+	Health health;
+	[SerializeField]
 	Vector2 velocity = Vector2.zero;
-	Rigidbody2D rb;
-
 
 	void Awake(){
-		rb = GetComponent<Rigidbody2D>();
+		health = GetComponent<Health>();
 	}
 
-	void Update(){
-		// TODO set random direction
+	public void Reset(){
+		// reset hp
+		// reset position
 	}
-
-	
-	void FixedUpdate(){
-		// move
-		rb.velocity = velocity;
-	}
-
 
 	public Vector2 GetVelocity(){
 		return velocity;
@@ -34,8 +28,5 @@ public class Enemy : MonoBehaviour {
 	public void SetVelocity(Vector2 v){
 		velocity = v;
 	}
-
-	public void Reset(){
-		velocity = Vector2.zero;
-	}
+	
 }

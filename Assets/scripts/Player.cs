@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	[Range(1, 4)]
+	[Range(1, 3)]
 	public int playerNumber = 1;
 	public bool canMove = true;
 	public float movementSpeed = 200f;
@@ -15,12 +15,13 @@ public class Player : MonoBehaviour {
 	Vector2 velocity = Vector2.zero;
 	Rigidbody2D rb;
 	Transform forwardPoint;	
-	// Animator anim;
+	Health health;
 
 
 	void Awake(){
 		// anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
+		health = GetComponent<Health>();
 		forwardPoint = transform.Find("ForwardPoint");
 	}
 
@@ -62,6 +63,10 @@ public class Player : MonoBehaviour {
 		velocity = v;
 	}
 
+	public Health GetHealth(){
+		return health;
+	}
+	
 	public void Reset(){
 		velocity = Vector2.zero;
 		canMove = true;
