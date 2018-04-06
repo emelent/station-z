@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyFollowRange : MonoBehaviour {
 	public SightRange sightRange;
+
 	void OnTriggerEnter2D(Collider2D collider){
 		if(collider.tag == "Enemy"){
 			print("entered");

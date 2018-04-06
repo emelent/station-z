@@ -63,6 +63,11 @@ public class ZombieAI : MonoBehaviour {
 				break;
 
 			case State.Chasing:
+				if(!vision.target){
+					// target lost go back to roaming
+					aiState = State.Roaming;
+					chooseRandomDirection();
+				}
 				if(attack.target){
 					aiState = State.Attacking;
 					enemy.SetVelocity(Vector2.zero);
@@ -73,9 +78,15 @@ public class ZombieAI : MonoBehaviour {
 		
 			case State.Attacking:
 				if(attack.target == null){
-					aiState = State.Chasing;
-					print("Go back to chasing");
-					StartCoroutine(followPlayer());
+					if(vision.target){
+						aiState = State.Chasing;
+						print("Go back to chasing");
+						StartCoroutine(followPlayer());
+					}else{
+						// target lost go back to roaming
+						aiState = State.Roaming;
+						chooseRandomDirection();
+					}
 				}
 				break;
 			case State.Frozen:
@@ -88,9 +99,6 @@ public class ZombieAI : MonoBehaviour {
 		switch(aiState){
 			case State.Roaming:
 				Roam();
-				break;
-			case State.Chasing:
-				// Chase();
 				break;
 		}
 

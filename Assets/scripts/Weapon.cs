@@ -20,13 +20,11 @@ public class Weapon : MonoBehaviour {
 	Transform firePoint;
 	float fireTime = 0f;
 
-	Vector3 FAKE_NORMAL = new  Vector3(9999, 9999, 9999);
 	
 	void Start () {
 		firePoint = transform.Find("FirePoint");
 		if(muzzleFlash)
 			muzzleFlash.gameObject.SetActive(false);
-		print(firePoint);
 	}
 	
 	void Update(){
@@ -63,7 +61,7 @@ public class Weapon : MonoBehaviour {
 				player.Damage(attackDamage);
 			}else{
 				// only show this for non organic targets
-				showEffect(hit.point, hit.normal);
+				// showEffect(hit.point, hit.normal);
 			}
 		}else{
 			Debug.DrawLine(firePos, firePos + (dir * attackRange));
@@ -72,7 +70,7 @@ public class Weapon : MonoBehaviour {
 
 	void showEffect(Vector3 hitPos, Vector3 hitNormal){
 		// particles
-		if(!hitNormal.Equals(FAKE_NORMAL)){
+		if(hitParticlePrefab){
 			Transform hitParticles = (Transform) Instantiate(
 				hitParticlePrefab, 
 				hitPos, 
