@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class ZombieAI : MonoBehaviour {
 
-	public enum State{Roaming, Chasing, Attacking};
+	public enum State{Roaming, Chasing, Attacking, Frozen};
 
 	public State aiState = State.Roaming;
 	public float chaseFactor = 1.2f;
 	[Header("Roam Config")]
 	public float minChangeDelay = 1f;
-	public float maxChangeDelay = 3f;
+	public float maxChangeDelay = 5f;
 	public float minRoamDistance = 100f;
 	public float maxRoamDistance = 400f;
 
@@ -37,6 +37,8 @@ public class ZombieAI : MonoBehaviour {
 	Transform forwardPoint;	
 	Enemy enemy;
 	Rigidbody2D rb;
+
+	
 	void Awake(){
 		rb = GetComponent<Rigidbody2D>();
 		enemy = GetComponent<Enemy>();
@@ -55,7 +57,7 @@ public class ZombieAI : MonoBehaviour {
 			case State.Roaming:
 				if(vision.target){
 					aiState = State.Chasing;
-					print("Start chasing");
+					GameMaster.PlayAudio("ZombieChase");
 					StartCoroutine(followPlayer());
 				}
 				break;
@@ -75,6 +77,9 @@ public class ZombieAI : MonoBehaviour {
 					print("Go back to chasing");
 					StartCoroutine(followPlayer());
 				}
+				break;
+			case State.Frozen:
+				enemy.SetVelocity(Vector2.zero);
 				break;
 		}
 	}
@@ -96,6 +101,7 @@ public class ZombieAI : MonoBehaviour {
 
 	IEnumerator delayedChooseRandomDirection(){
 		roamTravelled = 0f;
+		enemy.SetVelocity(Vector2.zero);
 		yield return new WaitForSeconds(
 			Random.Range(minChangeDelay, maxChangeDelay)
 		);
@@ -118,8 +124,10 @@ public class ZombieAI : MonoBehaviour {
 			yield return false;
 		}
 
-		Health  targetHealth = attack.target.GetComponent<Health>();
-		targetHealth.Damage(attackDamage);
+
+		GameMaster.PlayAudio("ZombieAttack");
+		Player player = attack.target.GetComponent<Player>();
+		player.Damage(attackDamage);
 		yield return new WaitForSeconds(1f/attackRate);
 		if(aiState == State.Attacking)
 			StartCoroutine(attackTarget());

@@ -10,18 +10,24 @@ public class Player : MonoBehaviour {
 	public bool canMove = true;
 	public float movementSpeed = 200f;
 	public float rotateStep = 1f;
+	public Weapon weapon;
+	public Color damageColor = Color.red;
+	public ParticleSystem bloodSplatter;
 
 	float motion = 0f;
 	Vector2 velocity = Vector2.zero;
 	Rigidbody2D rb;
 	Transform forwardPoint;	
 	Health health;
+	SpriteRenderer spriteRenderer;
+
 
 
 	void Awake(){
 		// anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 		health = GetComponent<Health>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 		forwardPoint = transform.Find("ForwardPoint");
 	}
 
@@ -44,6 +50,17 @@ public class Player : MonoBehaviour {
 		}else if (Input.GetButton(pk + "TurnLeft")){
 			transform.Rotate(0f, 0f, rotateStep);
 		}
+
+		// shoot
+		if(weapon){
+			if(weapon.fireRate > 0f){
+				if(Input.GetButton(pk + "Fire") && weapon.canShoot){
+					weapon.Shoot();
+				}
+			}else if(Input.GetButtonDown(pk + "Fire")){
+				weapon.Shoot();
+			}
+		}
 	}
 
 	void handleMovement(){
@@ -53,6 +70,24 @@ public class Player : MonoBehaviour {
 		}
 
 		rb.velocity = velocity;
+	}
+
+	IEnumerator showDamage(){
+		spriteRenderer.color = damageColor;
+		//TODO: random blood particles
+		if(bloodSplatter){
+			bloodSplatter.Play();
+		}
+		
+		yield return new WaitForSeconds(0.2f);
+		spriteRenderer.color = Color.white;
+	}
+
+	public void EquipWeapon(Weapon _weapon){
+		if(weapon){
+			Destroy(weapon.gameObject);
+		}
+		weapon = _weapon;
 	}
 
 	public Vector2 GetVelocity(){
@@ -65,6 +100,11 @@ public class Player : MonoBehaviour {
 
 	public Health GetHealth(){
 		return health;
+	}
+
+	public void Damage(float amount){
+		health.Damage(amount);
+		StartCoroutine(showDamage());
 	}
 
 	public void Reset(){
