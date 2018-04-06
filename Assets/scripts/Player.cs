@@ -55,10 +55,10 @@ public class Player : MonoBehaviour {
 		if(weapon){
 			if(weapon.fireRate > 0f){
 				if(Input.GetButton(pk + "Fire") && weapon.canShoot){
-					weapon.Shoot();
+					weapon.Shoot(transform.position);
 				}
 			}else if(Input.GetButtonDown(pk + "Fire")){
-				weapon.Shoot();
+				weapon.Shoot(transform.position);
 			}
 		}
 	}
@@ -74,12 +74,13 @@ public class Player : MonoBehaviour {
 
 	IEnumerator showDamage(){
 		spriteRenderer.color = damageColor;
-		//TODO: random blood particles
+		
+		//blood particles
 		if(bloodSplatter){
 			bloodSplatter.Play();
 		}
 		
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds(0.5f);
 		spriteRenderer.color = Color.white;
 	}
 
@@ -104,6 +105,9 @@ public class Player : MonoBehaviour {
 
 	public void Damage(float amount){
 		health.Damage(amount);
+		GameMaster.PlayAudio(
+			"PlayerHurt" + (int) Random.Range(1, 3)
+		);
 		StartCoroutine(showDamage());
 	}
 

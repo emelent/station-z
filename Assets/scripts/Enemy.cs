@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour {
 	public float movementSpeed = 200f;
 	public float rotateStep = 1f;
 	public Color damageColor = Color.red;
+	public ParticleSystem bloodSplatter;
 
 	Health health;
 	[SerializeField]
@@ -22,7 +23,11 @@ public class Enemy : MonoBehaviour {
 
 	IEnumerator showDamage(){
 		spriteRenderer.color = damageColor;
-		//TODO: random blood particles
+		//blood particles
+		if(bloodSplatter){
+			bloodSplatter.Play();
+		}
+		
 		yield return new WaitForSeconds(0.2f);
 		spriteRenderer.color = Color.white;
 	}

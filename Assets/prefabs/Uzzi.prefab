@@ -142,11 +142,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84658e5859b70405da2d49384954a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraShakeAmount: 0.05
+  cameraShakeLength: 0.1
   fireRate: 10
-  attackDamage: 2
-  attackRange: 2
+  attackDamage: 1.5
+  attackRange: 20
   fireSound: Uzzi
   muzzleFlash: {fileID: 4118574974482326}
+  hitParticlePrefab: {fileID: 4372971547677060, guid: 314f832a1683148bea81fb333b54b241,
+    type: 2}
+  whatToHit:
+    serializedVersion: 2
+    m_Bits: 6656
   canShoot: 1
 --- !u!114 &114554440934333826
 MonoBehaviour:
@@ -159,11 +166,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84658e5859b70405da2d49384954a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraShakeAmount: 0.05
+  cameraShakeLength: 0.1
   fireRate: 1
   attackDamage: 2
   attackRange: 2
   fireSound: Uzzi
   muzzleFlash: {fileID: 4118574974482326}
+  hitParticlePrefab: {fileID: 0}
+  whatToHit:
+    serializedVersion: 2
+    m_Bits: 0
   canShoot: 1
 --- !u!212 &212069053124992526
 SpriteRenderer:
@@ -197,7 +210,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -430235763
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300026, guid: 445e629f911a44ca992ddfd26d4a0e16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -241,7 +254,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -430235763
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 175fe0a6aec334942bbcc67c794dd64e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -285,7 +298,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -430235763
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300026, guid: 445e629f911a44ca992ddfd26d4a0e16, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
