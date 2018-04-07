@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
-	// public float cameraShakeAmount =  0.05f;
-	// public float  cameraShakeLength = 0.1f;
+	public float cameraShakeAmount =  0.01f;
+	public float  cameraShakeLength = 0.1f;
 	public float fireRate = 1f;
 	public float attackDamage = 2f;
 	public float attackRange = 2f;
@@ -62,6 +62,7 @@ public class Weapon : MonoBehaviour {
 			if(hit.collider.tag == "Enemy"){
 				Enemy enemy =  hit.collider.GetComponent<Enemy>();
 				enemy.Damage(attackDamage);
+				enemy.SetTarget(transform);
 			} else if(hit.collider.tag ==  "Player"){
 				Player player = hit.collider.GetComponent<Player>();
 				float dmg = (GameMaster.instance.friendlyFire)?  attackDamage:0f;
@@ -93,7 +94,7 @@ public class Weapon : MonoBehaviour {
 		}
 
 		// camera shake
-		// GameMaster.ShakeCamera(cameraShakeAmount, cameraShakeLength);
+		GameMaster.ShakeCamera(cameraShakeAmount, cameraShakeLength);
 	}
 
 

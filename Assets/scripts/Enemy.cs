@@ -14,10 +14,12 @@ public class Enemy : MonoBehaviour {
 	[SerializeField]
 	Vector2 velocity = Vector2.zero;
 	SpriteRenderer spriteRenderer;
+	SightRange sightRange;
 
 	void Awake(){
 		health = GetComponent<Health>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		sightRange =transform.Find("SightRange").GetComponent<SightRange>();
 	}
 
 
@@ -52,6 +54,9 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
+	public void SetTarget(Transform target){
+		sightRange.target =  target;
+	}
 	public Vector2 GetVelocity(){
 		return velocity;
 	}

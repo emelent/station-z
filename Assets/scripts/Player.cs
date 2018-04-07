@@ -10,10 +10,13 @@ public class Player : MonoBehaviour {
 	public bool canMove = true;
 	public float movementSpeed = 200f;
 	public float rotateStep = 1f;
+	[Range(0f, 1f)]
+	public float waterFriction = 0.9f;
 	public Color damageColor = Color.red;
 	public ParticleSystem bloodSplatter;
 	public Weapon weapon;
 
+	bool inWater = false;
 	float motion = 0f;
 	Vector2 velocity = Vector2.zero;
 	Rigidbody2D rb;
@@ -66,6 +69,9 @@ public class Player : MonoBehaviour {
 		if(canMove){
 			Vector2 direction = (transform.position - forwardPoint.position).normalized;
 			velocity = direction * motion * movementSpeed * Time.deltaTime;
+			if(IsInWater()){
+				velocity *= waterFriction;
+			}
 		}
 
 		rb.velocity = velocity;
@@ -81,6 +87,17 @@ public class Player : MonoBehaviour {
 		
 		yield return new WaitForSeconds(0.5f);
 		spriteRenderer.color = Color.white;
+	}
+
+	public bool IsInWater(){
+		return inWater;
+	}
+
+	public  void  SetInWater(bool b){
+		inWater = b;
+		spriteRenderer.maskInteraction = (b)? 
+			SpriteMaskInteraction.VisibleInsideMask:SpriteMaskInteraction.None;
+		
 	}
 
 	public void EquipWeapon(Weapon _weapon){

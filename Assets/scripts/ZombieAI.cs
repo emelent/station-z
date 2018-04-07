@@ -21,7 +21,7 @@ public class ZombieAI : MonoBehaviour {
 
 	[Header("Chase Config")]
 	public float updateRate = 2f;
-	public float maxFollowDistance = 5f;
+	public float maxFollowDistance = 100f;
 
 	[Header("Attack Config")]
 	public float attackDamage = 10f;

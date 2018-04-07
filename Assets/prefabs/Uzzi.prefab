@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84658e5859b70405da2d49384954a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraShakeAmount: 0.05
-  cameraShakeLength: 0.1
+  cameraShakeAmount: 0
+  cameraShakeLength: 0
   fireRate: 10
   attackDamage: 8
   attackRange: 15
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84658e5859b70405da2d49384954a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraShakeAmount: 0.05
+  cameraShakeAmount: 0.01
   cameraShakeLength: 0.1
   fireRate: 1
   attackDamage: 2

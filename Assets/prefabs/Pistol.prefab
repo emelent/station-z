@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84658e5859b70405da2d49384954a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraShakeAmount: 0.05
+  cameraShakeAmount: 0.01
   cameraShakeLength: 0.1
   fireRate: 0
   attackDamage: 15
