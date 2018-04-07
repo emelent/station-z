@@ -9,6 +9,8 @@ TODO:
 	- Enemy drop items on death
 
 	- Work in lighting
+	- Gun lighting thing
+	
 	- Day Night Cycle
 	- Player scores
 
