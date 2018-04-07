@@ -193,7 +193,7 @@ MonoBehaviour:
   playerNumber: 1
   canMove: 1
   movementSpeed: 200
-  rotateStep: 6
+  rotateStep: 3
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   bloodSplatter: {fileID: 198438223785268710}
   weapon: {fileID: 0}

@@ -385,6 +385,10 @@ Prefab:
       propertyPath: m_Color.b
       value: 0.20000002
       objectReference: {fileID: 0}
+    - target: {fileID: 1636662173659378, guid: 3c9286438531244d59d7dabe4915651f, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c9286438531244d59d7dabe4915651f, type: 2}
   m_IsPrefabParent: 0
@@ -541,12 +545,17 @@ MonoBehaviour:
   - {fileID: 4475302424274204, guid: 6e9f7b14cdf5746e2ac02ec4d2ede15a, type: 2}
   - {fileID: 4898422551972090, guid: b7a4d31fe95be498f9abe4ad3aef5c79, type: 2}
   - {fileID: 4770821418714846, guid: f631324feabe04ab1988080c4be361da, type: 2}
+  HealthBars:
+  - {fileID: 1623251204}
+  - {fileID: 1298315002}
+  - {fileID: 349249147}
   SpawnLocations:
   - {fileID: 640635750}
   - {fileID: 327505541}
   - {fileID: 1469699088}
   StartWeapon: {fileID: 4284771790595828, guid: f0ab04877e1e248ebabb22e867855c91,
     type: 2}
+  cameraShake: {fileID: 0}
 --- !u!4 &984337677
 Transform:
   m_ObjectHideFlags: 0
@@ -4890,7 +4899,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1636662173659378, guid: 3c9286438531244d59d7dabe4915651f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 212970666584557556, guid: 3c9286438531244d59d7dabe4915651f,
         type: 2}
@@ -5142,7 +5151,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1636662173659378, guid: 3c9286438531244d59d7dabe4915651f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 212970666584557556, guid: 3c9286438531244d59d7dabe4915651f,
         type: 2}

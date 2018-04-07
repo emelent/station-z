@@ -12,13 +12,15 @@ public class GameMaster : MonoBehaviour {
 	public bool friendlyFire = true;
 
 	public Transform[] Players = new Transform[MAX_PLAYERS];
+	public Transform[] HealthBars = new Transform[MAX_PLAYERS];
+
 	public Transform[] SpawnLocations;
 	public Transform StartWeapon;
+	public CameraShake cameraShake;
 
 
 	[HideInInspector]
 	public static GameMaster instance;
-	CameraShake cameraShake;
 	AudioManager audioManager;
 
 	// Use this for initialization
@@ -27,7 +29,6 @@ public class GameMaster : MonoBehaviour {
 			instance = this;
 		}
 		audioManager = GetComponent<AudioManager>();
-		cameraShake = Camera.main.GetComponent<CameraShake>();
 
 		spawnPlayers();
 	}
@@ -38,7 +39,11 @@ public class GameMaster : MonoBehaviour {
 				Players[i],
 				SpawnLocations[i]
 			);
-
+			// link healthbars
+			HealthBars[i].gameObject.SetActive(true);
+			newPlayer.GetComponent<Health>().LinkHealthBar(
+				HealthBars[i].Find("Bar")
+			);
 			createPlayerWeapon(newPlayer.GetComponent<Player>());
 		}
 	}

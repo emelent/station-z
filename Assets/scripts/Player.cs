@@ -102,6 +102,12 @@ public class Player : MonoBehaviour {
 		return health;
 	}
 
+	IEnumerator die(){
+		yield return new WaitForEndOfFrame();
+		StopAllCoroutines();
+		GameMaster.KillPlayer(this);
+	}
+
 	public void Damage(float amount){
 		GameMaster.PlayAudio(
 			"PlayerHurt" + (int) Random.Range(1, 3)
@@ -109,8 +115,7 @@ public class Player : MonoBehaviour {
 		health.Damage(amount);
 
 		if(health.GetHealth() == 0f){
-			StopAllCoroutines();
-			GameMaster.KillPlayer(this);
+			StartCoroutine(die());
 		}else{
 			StartCoroutine(showDamage());
 		}

@@ -17,9 +17,7 @@ public class Health : MonoBehaviour {
 
 	void Awake(){
 		mHealth = maxHealth;
-		if(HealthBar){
-			mOrigHealthBarScale = HealthBar.localScale.x;
-		}
+		LinkHealthBar(HealthBar);
 	}
 
 	
@@ -31,12 +29,20 @@ public class Health : MonoBehaviour {
 		}
 
 		if(HealthBar){	
+			float x = (mHealth == 0f)? 0f:mHealth/maxHealth * mOrigHealthBarScale;
 			HealthBar.transform.localScale = new Vector3(
-				mHealth/maxHealth * mOrigHealthBarScale,
+				x,
 				HealthBar.transform.localScale.y,
 				HealthBar.transform.localScale.z
 			);
 		}
+	}
+
+	public void LinkHealthBar(Transform bar){
+		if(!bar) return;
+
+		HealthBar = bar;
+		mOrigHealthBarScale = HealthBar.localScale.x;
 	}
 
 	public void Reset(){
@@ -44,11 +50,11 @@ public class Health : MonoBehaviour {
 	}
 	
 	public void Damage(float amount){
-		mHealth = Mathf.Clamp(mHealth - amount, 0, maxHealth);
+		mHealth = Mathf.Max(mHealth - amount, 0f);
 	}
 
 	public void Heal(float amount){
-		mHealth = Mathf.Clamp(mHealth + amount, 0, maxHealth);
+		mHealth = Mathf.Min(mHealth + amount, maxHealth);
 	}
 
 	public float GetHealth(){
