@@ -8,8 +8,10 @@ TODO:
 	- Create powerups
 	- Enemy drop items on death
 
+	- Work in lighting
+	- Day Night Cycle
 	- Player scores
-	
+
 	- Create death effect(zombie and player)
 
 	- Create Zombie spawner

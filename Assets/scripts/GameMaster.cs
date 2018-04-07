@@ -16,6 +16,7 @@ public class GameMaster : MonoBehaviour {
 
 	public Transform[] SpawnLocations;
 	public Transform StartWeapon;
+	public Transform[] Weapons;
 	public CameraShake cameraShake;
 
 
@@ -65,8 +66,11 @@ public class GameMaster : MonoBehaviour {
 		yield return new WaitForSeconds(respawnDelay);
 		player.Reset();
 		player.transform.position = 
-			SpawnLocations[player.playerNumber - 1].position;
+			SpawnLocations[Random.Range(0, SpawnLocations.Length)].position;
 
+		// Randomize weapon
+		StartWeapon = Weapons[Random.Range(0, Weapons.Length)];
+		
 		// equip starter weapon
 		createPlayerWeapon(player);
 	
