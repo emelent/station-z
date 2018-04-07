@@ -79,7 +79,7 @@ public class GameMaster : MonoBehaviour {
 		// TODO drop item
 
 		// TODO use an object pool
-		Destroy(enemy);
+		Destroy(enemy.gameObject);
 	}
 
 	public static void PlayAudio(string name){

@@ -6,10 +6,12 @@ public class CameraShake : MonoBehaviour {
 
 	public Camera mainCam;
 	float shakeAmount = 0;
-
+	Vector3 initPos;
 	void Awake(){
-		if(mainCam == null)
+		if(mainCam == null){
 			mainCam = Camera.main;
+		}
+		initPos = mainCam.transform.position;
 	}
 
 	public void Shake(float amount, float length){
@@ -21,12 +23,12 @@ public class CameraShake : MonoBehaviour {
 	void DoShake(){
 		if(shakeAmount >0){
 			Vector3 camPos = mainCam.transform.position;
-
+			print(mainCam.transform.position);
 			float offsetX = Random.value * shakeAmount * 2 - shakeAmount;
 			float offsetY = Random.value * shakeAmount * 2 - shakeAmount;
-
+			
 			camPos.x += offsetX;
-			camPos.x += offsetY;
+			camPos.y += offsetY;
 
 			mainCam.transform.position = camPos;
 		}
@@ -34,6 +36,7 @@ public class CameraShake : MonoBehaviour {
 
 	void StopShake(){
 		CancelInvoke("DoShake");
-		mainCam.transform.localPosition = Vector3.zero;
+		
+		mainCam.transform.position = initPos;
 	}
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
-	public float cameraShakeAmount =  0.05f;
-	public float  cameraShakeLength = 0.1f;
+	// public float cameraShakeAmount =  0.05f;
+	// public float  cameraShakeLength = 0.1f;
 	public float fireRate = 1f;
 	public float attackDamage = 2f;
 	public float attackRange = 2f;
