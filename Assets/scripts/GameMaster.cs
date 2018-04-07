@@ -9,6 +9,7 @@ public class GameMaster : MonoBehaviour {
 	public uint numberOfPlayers = MAX_PLAYERS;
 	public float respawnDelay = 2f;	
 	public bool respawnPlayers = true;
+	public bool friendlyFire = true;
 
 	public Transform[] Players = new Transform[MAX_PLAYERS];
 	public Transform[] SpawnLocations;

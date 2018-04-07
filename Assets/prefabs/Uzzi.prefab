@@ -151,6 +151,8 @@ MonoBehaviour:
   muzzleFlash: {fileID: 4118574974482326}
   hitParticlePrefab: {fileID: 4372971547677060, guid: 314f832a1683148bea81fb333b54b241,
     type: 2}
+  BulletTrailPrefab: {fileID: 4579278684140758, guid: 613576ec9cdaf4cfbb1d3a9ab255561e,
+    type: 2}
   whatToHit:
     serializedVersion: 2
     m_Bits: 6656
@@ -174,6 +176,7 @@ MonoBehaviour:
   fireSound: Uzzi
   muzzleFlash: {fileID: 4118574974482326}
   hitParticlePrefab: {fileID: 0}
+  BulletTrailPrefab: {fileID: 0}
   whatToHit:
     serializedVersion: 2
     m_Bits: 0

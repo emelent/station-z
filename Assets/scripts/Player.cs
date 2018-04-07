@@ -118,6 +118,7 @@ public class Player : MonoBehaviour {
 	
 	public void Reset(){
 		health.Reset();
+		spriteRenderer.color = Color.white;
 		velocity = Vector2.zero;
 		canMove = true;
 	}

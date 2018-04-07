@@ -536,6 +536,7 @@ MonoBehaviour:
   numberOfPlayers: 3
   respawnDelay: 2
   respawnPlayers: 1
+  friendlyFire: 1
   Players:
   - {fileID: 4475302424274204, guid: 6e9f7b14cdf5746e2ac02ec4d2ede15a, type: 2}
   - {fileID: 4898422551972090, guid: b7a4d31fe95be498f9abe4ad3aef5c79, type: 2}
@@ -544,7 +545,7 @@ MonoBehaviour:
   - {fileID: 640635750}
   - {fileID: 327505541}
   - {fileID: 1469699088}
-  StartWeapon: {fileID: 4970103075777060, guid: 3c36745315d7b4acbba10c37481d457a,
+  StartWeapon: {fileID: 4284771790595828, guid: f0ab04877e1e248ebabb22e867855c91,
     type: 2}
 --- !u!4 &984337677
 Transform:
