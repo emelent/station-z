@@ -1,10 +1,16 @@
 
 TODO:
-	Fix bug when player dies, the  enemies have reference
-	to dead player.
+
+	- Create weapon cooldown(to stop  players from  spamming shots)
+	- Add weapon heat gauge to HUD
+
+
+	- Create powerups
+	- Enemy drop items on death
+
+	- Player scores
 	
-	As soon as the player 
+	- Create death effect(zombie and player)
 
+	- Create Zombie spawner
 
-	There's something wrong with the bullet contact sparks,
-	i.e. Weapon.showEffect

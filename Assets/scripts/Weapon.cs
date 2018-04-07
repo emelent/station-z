@@ -62,9 +62,10 @@ public class Weapon : MonoBehaviour {
 			if(hit.collider.tag == "Enemy"){
 				Enemy enemy =  hit.collider.GetComponent<Enemy>();
 				enemy.Damage(attackDamage);
-			} else if(hit.collider.tag ==  "Player" && GameMaster.instance.friendlyFire){
+			} else if(hit.collider.tag ==  "Player"){
 				Player player = hit.collider.GetComponent<Player>();
-				player.Damage(attackDamage);
+				float dmg = (GameMaster.instance.friendlyFire)?  attackDamage:0f;
+				player.Damage(dmg);
 			}
 		}
 		
