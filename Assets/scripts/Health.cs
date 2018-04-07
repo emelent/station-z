@@ -45,11 +45,6 @@ public class Health : MonoBehaviour {
 	
 	public void Damage(float amount){
 		mHealth = Mathf.Clamp(mHealth - amount, 0, maxHealth);
-
-		//kill at 0HP
-		if(mHealth == 0f){
-			GameMaster.Kill(gameObject);
-		}
 	}
 
 	public void Heal(float amount){

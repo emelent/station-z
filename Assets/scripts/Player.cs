@@ -10,9 +10,9 @@ public class Player : MonoBehaviour {
 	public bool canMove = true;
 	public float movementSpeed = 200f;
 	public float rotateStep = 1f;
-	public Weapon weapon;
 	public Color damageColor = Color.red;
 	public ParticleSystem bloodSplatter;
+	public Weapon weapon;
 
 	float motion = 0f;
 	Vector2 velocity = Vector2.zero;
@@ -20,7 +20,6 @@ public class Player : MonoBehaviour {
 	Transform forwardPoint;	
 	Health health;
 	SpriteRenderer spriteRenderer;
-
 
 
 	void Awake(){
@@ -99,18 +98,24 @@ public class Player : MonoBehaviour {
 		velocity = v;
 	}
 
-	public Health GetHealth(){
+	public Health GetHealthBar(){
 		return health;
 	}
 
 	public void Damage(float amount){
-		health.Damage(amount);
 		GameMaster.PlayAudio(
 			"PlayerHurt" + (int) Random.Range(1, 3)
 		);
-		StartCoroutine(showDamage());
-	}
+		health.Damage(amount);
 
+		if(health.GetHealth() == 0f){
+			StopAllCoroutines();
+			GameMaster.KillPlayer(this);
+		}else{
+			StartCoroutine(showDamage());
+		}
+	}
+	
 	public void Reset(){
 		health.Reset();
 		velocity = Vector2.zero;

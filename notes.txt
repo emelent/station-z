@@ -1,0 +1,10 @@
+
+TODO:
+	Fix bug when player dies, the  enemies have reference
+	to dead player.
+	
+	As soon as the player 
+
+
+	There's something wrong with the bullet contact sparks,
+	i.e. Weapon.showEffect

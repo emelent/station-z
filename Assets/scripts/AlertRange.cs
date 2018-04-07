@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFollowRange : MonoBehaviour {
+public class AlertRange : MonoBehaviour {
 	public SightRange sightRange;
 
 	void OnTriggerEnter2D(Collider2D collider){

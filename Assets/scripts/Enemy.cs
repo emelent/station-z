@@ -44,7 +44,12 @@ public class Enemy : MonoBehaviour {
 
 	public void Damage(float amount){
 		health.Damage(amount);
-		StartCoroutine(showDamage());
+		if(health.GetHealth() == 0f){
+			StopAllCoroutines();
+			GameMaster.KillEnemy(this);
+		}else{
+			StartCoroutine(showDamage());
+		}
 	}
 
 	public Vector2 GetVelocity(){

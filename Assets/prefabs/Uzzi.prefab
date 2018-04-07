@@ -145,7 +145,7 @@ MonoBehaviour:
   cameraShakeAmount: 0.05
   cameraShakeLength: 0.1
   fireRate: 10
-  attackDamage: 1.5
+  attackDamage: 5
   attackRange: 20
   fireSound: Uzzi
   muzzleFlash: {fileID: 4118574974482326}
