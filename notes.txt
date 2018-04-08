@@ -5,22 +5,19 @@ BUGS:
 
 TODO:
 
+	- Enemy drop items on death
 	- Add other weapons
 
-
-	- Create powerups
-	- Enemy drop items on death
-
-	- Work in lighting
-	- Gun lighting thing
-
-	- Day Night Cycle
-	- Player scores
-
 	- Create zombie death effect
+	- Player kill count
+
 
 	- Create Zombie spawner
 
+
+	- Patrol zombie
 	- Create Boss Zombie
 
 	- Remove enemy sight thing, and add a detection trigger to the players,
+
+	- Code Refactor

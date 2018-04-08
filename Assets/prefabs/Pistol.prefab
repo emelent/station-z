@@ -177,7 +177,7 @@ MonoBehaviour:
   fireRate: 0
   attackDamage: 15
   attackRange: 10
-  attackKnockBack: 200
+  attackKnockBack: 3
   fireSound: Pistol
   muzzleFlash: {fileID: 4393901209309388}
   hitParticlePrefab: {fileID: 4372971547677060, guid: 314f832a1683148bea81fb333b54b241,

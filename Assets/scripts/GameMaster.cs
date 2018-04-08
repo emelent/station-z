@@ -49,13 +49,13 @@ public class GameMaster : MonoBehaviour {
 			newPlayer.GetComponent<Health>().LinkHealthBar(
 				HealthBars[i].Find("Bar")
 			);
-			createPlayerWeapon(player);
+			CreatePlayerWeapon(player, StartWeapon);
 		}
 	}
 
-	void createPlayerWeapon(Player player){
+	public void CreatePlayerWeapon(Player player, Transform weaponPrefab){
 		//create and equip starter weapon
-		Transform newWeapon = (Transform)  Instantiate(StartWeapon, player.transform);
+		Transform newWeapon = (Transform)  Instantiate(weaponPrefab, player.transform);
 		Weapon weapon = newWeapon.GetComponent<Weapon>();
 		// link weapon gauges
 		weapon.LinkGaugeBar(WeaponGauges[player.playerNumber - 1].Find("Bar"));
@@ -80,7 +80,7 @@ public class GameMaster : MonoBehaviour {
 		StartWeapon = Weapons[Random.Range(0, Weapons.Length)];
 
 		// equip starter weapon
-		createPlayerWeapon(player);
+		CreatePlayerWeapon(player, StartWeapon);
 	
 		player.gameObject.SetActive(true);
 	}
