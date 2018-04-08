@@ -142,15 +142,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84658e5859b70405da2d49384954a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heatRate: 10
+  coolRate: 0.1
   cameraShakeAmount: 0.05
   cameraShakeLength: 0.1
   fireRate: 1
   attackDamage: 2
   attackRange: 2
+  attackKnockBack: 2
   fireSound: Pistol
   muzzleFlash: {fileID: 0}
   hitParticlePrefab: {fileID: 0}
   BulletTrailPrefab: {fileID: 0}
+  GaugeBar: {fileID: 0}
   whatToHit:
     serializedVersion: 2
     m_Bits: 0
@@ -166,17 +170,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84658e5859b70405da2d49384954a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heatRate: 14
+  coolRate: 50
   cameraShakeAmount: 0.01
   cameraShakeLength: 0.1
   fireRate: 0
   attackDamage: 15
   attackRange: 10
+  attackKnockBack: 200
   fireSound: Pistol
   muzzleFlash: {fileID: 4393901209309388}
   hitParticlePrefab: {fileID: 4372971547677060, guid: 314f832a1683148bea81fb333b54b241,
     type: 2}
   BulletTrailPrefab: {fileID: 4579278684140758, guid: 613576ec9cdaf4cfbb1d3a9ab255561e,
     type: 2}
+  GaugeBar: {fileID: 0}
   whatToHit:
     serializedVersion: 2
     m_Bits: 6656

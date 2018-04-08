@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 	public Color damageColor = Color.red;
 	public ParticleSystem bloodSplatter;
 	public Weapon weapon;
+	public Sprite[] playerSprites;
 
 	bool inWater = false;
 	float motion = 0f;
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour {
 		health = GetComponent<Health>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		forwardPoint = transform.Find("ForwardPoint");
+		SetPlayerNumber(playerNumber);
 	}
 
 	void Update(){
@@ -57,10 +59,10 @@ public class Player : MonoBehaviour {
 		if(weapon){
 			if(weapon.fireRate > 0f){
 				if(Input.GetButton(pk + "Fire") && weapon.canShoot){
-					weapon.Shoot(transform.position);
+					weapon.Shoot();
 				}
 			}else if(Input.GetButtonDown(pk + "Fire")){
-				weapon.Shoot(transform.position);
+				weapon.Shoot();
 			}
 		}
 	}
@@ -89,6 +91,13 @@ public class Player : MonoBehaviour {
 		spriteRenderer.color = Color.white;
 	}
 
+	public void SetPlayerNumber(int num){
+		if(playerNumber < 0 || playerNumber > playerSprites.Length)
+			return;
+
+		playerNumber = num;
+		spriteRenderer.sprite = playerSprites[num -1];
+	}
 	public bool IsInWater(){
 		return inWater;
 	}

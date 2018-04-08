@@ -15,7 +15,6 @@ public class SightRange : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider){
 		if(collider.tag  == "Player"){
 			target = collider.transform;
-			print("Player spotted");
 		}
 	}
 }

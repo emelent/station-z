@@ -1,8 +1,17 @@
 
+BUGS:
+	- Fix enemy onhit knockback
+		Turns out I'm probably gonna have to switch to forces
+		instead of directly manipulating velocity
+
+	- Fix weapon gauge linking and stats
+
+	- Player healthbar doesn't always go down to zero
+
 TODO:
 
-	- Create weapon cooldown(to stop  players from  spamming shots)
-	- Add weapon heat gauge to HUD
+	- Add other weapons
+	- Add weapon knockback when hits target
 
 
 	- Create powerups
@@ -10,7 +19,7 @@ TODO:
 
 	- Work in lighting
 	- Gun lighting thing
-	
+
 	- Day Night Cycle
 	- Player scores
 
@@ -18,3 +27,6 @@ TODO:
 
 	- Create Zombie spawner
 
+	- Create Boss Zombie
+
+	- Remove enemy sight thing, and add a detection trigger to the players,

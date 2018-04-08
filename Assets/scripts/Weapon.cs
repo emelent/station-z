@@ -4,15 +4,40 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
+	[SerializeField]
+	public class Cooldown{
+		public float maxChill = 100f;
+		public float chill = 100f;
+		public bool refilling = false;
+
+		public void Drop(float amount){
+			chill = Mathf.Max(0f, chill - amount);
+			refilling = (chill == 0f);
+		}
+		
+		public void Refill(float amount){
+			if(!refilling) return;
+			chill = Mathf.Min(maxChill, chill + amount);
+			refilling = (chill != maxChill);
+		
+		}
+	}
+	[SerializeField]
+	public Cooldown fireCoolDown = new Cooldown();
+	public float heatRate = 20f;
+	public float coolRate = 10f;
+
 	public float cameraShakeAmount =  0.01f;
 	public float  cameraShakeLength = 0.1f;
 	public float fireRate = 1f;
 	public float attackDamage = 2f;
 	public float attackRange = 2f;
+	public float attackKnockBack = 2f;
 	public string fireSound = "Pistol";
 	public Transform muzzleFlash;
 	public Transform hitParticlePrefab;
 	public Transform BulletTrailPrefab;
+	public Transform GaugeBar;
 	
 	public LayerMask whatToHit;
 
@@ -20,7 +45,8 @@ public class Weapon : MonoBehaviour {
 	public bool canShoot = true;
 	Transform firePoint;
 	float fireTime = 0f;
-
+	[SerializeField]
+	static float maxGaugeScale = -1f;
 	Vector3 FAKE_NORMAL = new  Vector3(9999, 9999, 9999);
 	
 	void Start () {
@@ -32,6 +58,25 @@ public class Weapon : MonoBehaviour {
 	void Update(){
 		if(fireRate > 0f)
 			canShoot = Time.time > fireTime;
+		
+		fireCoolDown.Refill(coolRate * Time.deltaTime);
+		if(GaugeBar && maxGaugeScale != -1f){
+			float x = (fireCoolDown.chill == 0)? 0: fireCoolDown.chill / fireCoolDown.maxChill * maxGaugeScale;
+			GaugeBar.localScale = new Vector3(
+				x,
+				GaugeBar.localScale.y,
+				GaugeBar.localScale.z
+			);
+		}
+	}
+
+	public void LinkGaugeBar(Transform bar){
+		if(!bar) return;
+		if(maxGaugeScale == -1f){
+			maxGaugeScale = bar.localScale.x;
+			print("setting gauge");
+		}
+		GaugeBar = bar;
 	}
 
 	IEnumerator showMuzzleFlash(){
@@ -43,8 +88,16 @@ public class Weapon : MonoBehaviour {
 			muzzleFlash.gameObject.SetActive(false);
 	}
 
+	public void Shoot(){
+		if(fireCoolDown.refilling){
+			GameMaster.PlayAudio("NoAmmo");
+		}else{
+			fireCoolDown.Drop(heatRate);
+			shoot();
+		}
+	}
 
-	 public void Shoot(Vector2 position){
+	 public void shoot(){
 		fireTime = Time.time + 1/fireRate;
 		GameMaster.PlayAudio(fireSound);
 		StartCoroutine(showMuzzleFlash());
@@ -62,6 +115,7 @@ public class Weapon : MonoBehaviour {
 			if(hit.collider.tag == "Enemy"){
 				Enemy enemy =  hit.collider.GetComponent<Enemy>();
 				enemy.Damage(attackDamage);
+				enemy.KnockBack(dir * attackKnockBack);
 				enemy.SetTarget(transform);
 			} else if(hit.collider.tag ==  "Player"){
 				Player player = hit.collider.GetComponent<Player>();

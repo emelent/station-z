@@ -6,9 +6,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 	public bool allowedToMove = true;
 	public float movementSpeed = 200f;
-	public float rotateStep = 1f;
+	public float moveForce = 100f;
 	public Color damageColor = Color.red;
 	public ParticleSystem bloodSplatter;
+	public float knockBack = 0.4f;
 
 	Health health;
 	[SerializeField]
@@ -52,6 +53,11 @@ public class Enemy : MonoBehaviour {
 		}else{
 			StartCoroutine(showDamage());
 		}
+	}
+
+	public void KnockBack(Vector2 dir){
+		velocity -= dir;
+
 	}
 
 	public void SetTarget(Transform target){

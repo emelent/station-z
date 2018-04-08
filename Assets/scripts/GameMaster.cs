@@ -11,13 +11,14 @@ public class GameMaster : MonoBehaviour {
 	public bool respawnPlayers = true;
 	public bool friendlyFire = true;
 
-	public Transform[] Players = new Transform[MAX_PLAYERS];
-	public Transform[] HealthBars = new Transform[MAX_PLAYERS];
-
-	public Transform[] SpawnLocations;
-	public Transform StartWeapon;
-	public Transform[] Weapons;
 	public CameraShake cameraShake;
+	public Transform PlayerPrefab;
+	public Transform StartWeapon;
+
+	public Transform[] HealthBars = new Transform[MAX_PLAYERS];
+	public Transform[] WeaponGauges = new Transform[MAX_PLAYERS];
+	public Transform[] SpawnLocations;
+	public Transform[] Weapons;
 
 
 	[HideInInspector]
@@ -37,22 +38,29 @@ public class GameMaster : MonoBehaviour {
 	void spawnPlayers(){
 		for(int i=0; i < numberOfPlayers; i++){
 			Transform newPlayer = (Transform) Instantiate(
-				Players[i],
+				PlayerPrefab,
 				SpawnLocations[i]
 			);
+			Player player = newPlayer.GetComponent<Player>();
+			player.SetPlayerNumber(i+1);
 			// link healthbars
 			HealthBars[i].gameObject.SetActive(true);
+			WeaponGauges[player.playerNumber - 1].gameObject.SetActive(true);
 			newPlayer.GetComponent<Health>().LinkHealthBar(
 				HealthBars[i].Find("Bar")
 			);
-			createPlayerWeapon(newPlayer.GetComponent<Player>());
+			createPlayerWeapon(player);
 		}
 	}
 
 	void createPlayerWeapon(Player player){
 		//create and equip starter weapon
 		Transform newWeapon = (Transform)  Instantiate(StartWeapon, player.transform);
-		player.EquipWeapon(newWeapon.GetComponent<Weapon>());
+		Weapon weapon = newWeapon.GetComponent<Weapon>();
+		// link weapon gauges
+		weapon.LinkGaugeBar(WeaponGauges[player.playerNumber - 1].Find("Bar"));
+		player.EquipWeapon(weapon);
+
 	}
 
 
@@ -70,7 +78,7 @@ public class GameMaster : MonoBehaviour {
 
 		// Randomize weapon
 		StartWeapon = Weapons[Random.Range(0, Weapons.Length)];
-		
+
 		// equip starter weapon
 		createPlayerWeapon(player);
 	
