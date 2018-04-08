@@ -1,17 +1,11 @@
 
 BUGS:
-	- Fix enemy onhit knockback
-		Turns out I'm probably gonna have to switch to forces
-		instead of directly manipulating velocity
 
-	- Fix weapon gauge linking and stats
-
-	- Player healthbar doesn't always go down to zero
+	#0 - Player healthbar doesn't always go down to zero
 
 TODO:
 
 	- Add other weapons
-	- Add weapon knockback when hits target
 
 
 	- Create powerups
@@ -23,7 +17,7 @@ TODO:
 	- Day Night Cycle
 	- Player scores
 
-	- Create death effect(zombie and player)
+	- Create zombie death effect
 
 	- Create Zombie spawner
 

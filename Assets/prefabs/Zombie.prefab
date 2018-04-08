@@ -164,7 +164,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680453541626172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.79, y: 7.2911534, z: 0}
+  m_LocalPosition: {x: -9.791667, y: 4.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4284675140619412}
@@ -382,10 +382,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowedToMove: 1
-  movementSpeed: 100
-  rotateStep: 1
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  movementSpeed: 10
+  moveForce: 100
+  damageColor: {r: 1, g: 1, b: 1, a: 1}
+  damageSprite: {fileID: 21300030, guid: fbf28bcf0a167443e901841a6758b7e1, type: 3}
   bloodSplatter: {fileID: 198270794834407972}
+  knockBack: 0.4
   velocity: {x: 0, y: 0}
 --- !u!114 &114714880140769048
 MonoBehaviour:
@@ -399,13 +401,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiState: 0
-  chaseFactor: 2
+  chaseFactor: 1.8
   minChangeDelay: 1
   maxChangeDelay: 3
   minRoamDistance: 100
   maxRoamDistance: 400
   updateRate: 1
-  maxFollowDistance: 5
+  maxFollowDistance: 15
   attackDamage: 10
   attackRate: 1
   vision: {fileID: 114058783421416814}
@@ -3957,4 +3959,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
+  m_MaskInteraction: 0

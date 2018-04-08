@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour {
 	public float movementSpeed = 200f;
 	public float moveForce = 100f;
 	public Color damageColor = Color.red;
+	public Sprite damageSprite;
 	public ParticleSystem bloodSplatter;
 	public float knockBack = 0.4f;
 
@@ -16,16 +17,20 @@ public class Enemy : MonoBehaviour {
 	Vector2 velocity = Vector2.zero;
 	SpriteRenderer spriteRenderer;
 	SightRange sightRange;
-
+	Rigidbody2D rb;
+	Sprite sprite;
 	void Awake(){
+		rb = GetComponent<Rigidbody2D>();
 		health = GetComponent<Health>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		sprite = spriteRenderer.sprite;
 		sightRange =transform.Find("SightRange").GetComponent<SightRange>();
 	}
 
 
 	IEnumerator showDamage(){
 		spriteRenderer.color = damageColor;
+		spriteRenderer.sprite = damageSprite;
 		//blood particles
 		if(bloodSplatter){
 			bloodSplatter.Play();
@@ -33,6 +38,7 @@ public class Enemy : MonoBehaviour {
 		
 		yield return new WaitForSeconds(0.2f);
 		spriteRenderer.color = Color.white;
+		spriteRenderer.sprite = sprite;
 	}
 
 
@@ -55,9 +61,8 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	public void KnockBack(Vector2 dir){
-		velocity -= dir;
-
+	public void KnockBack(Vector2 force){
+		rb.AddForce(force, ForceMode2D.Impulse);
 	}
 
 	public void SetTarget(Transform target){

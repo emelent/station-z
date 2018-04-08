@@ -74,7 +74,6 @@ public class Weapon : MonoBehaviour {
 		if(!bar) return;
 		if(maxGaugeScale == -1f){
 			maxGaugeScale = bar.localScale.x;
-			print("setting gauge");
 		}
 		GaugeBar = bar;
 	}

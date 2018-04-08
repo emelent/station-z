@@ -50,9 +50,9 @@ public class ZombieAI : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision){
 		if(collision.collider.tag != "Player"){
-			enemy.SetVelocity(enemy.GetVelocity() *  -0.1f);
-			roamTravelled =  0f;
-			roamDistance  = 10f;
+			rb.Sleep();
+			roamTravelled =  1f;
+			roamDistance  = 0f;
 			delayedChooseRandomDirection(0.2f);
 		}
 	}
@@ -73,19 +73,17 @@ public class ZombieAI : MonoBehaviour {
 					aiState = State.Roaming;
 					chooseRandomDirection();
 				}
-				if(attack.target){
-					aiState = State.Attacking;
-					enemy.SetVelocity(Vector2.zero);
-					print("Start attacking");
-					StartCoroutine(attackTarget());
-				}
+				// if(attack.target){
+				// 	aiState = State.Attacking;
+				// 	rb.Sleep();
+				// 	StartCoroutine(attackTarget());
+				// }
 				break;
 		
 			case State.Attacking:
 				if(attack.target == null){
 					if(vision.target){
 						aiState = State.Chasing;
-						print("Go back to chasing");
 						StartCoroutine(followPlayer());
 					}else{
 						// target lost go back to roaming
@@ -95,7 +93,7 @@ public class ZombieAI : MonoBehaviour {
 				}
 				break;
 			case State.Frozen:
-				enemy.SetVelocity(Vector2.zero);
+				rb.Sleep();
 				break;
 		}
 	}
@@ -106,16 +104,13 @@ public class ZombieAI : MonoBehaviour {
 				Roam();
 				break;
 		}
-
-		if(enemy.allowedToMove)
-			rb.velocity = enemy.GetVelocity() * Time.deltaTime;
 	}
 
 
 	IEnumerator delayedChooseRandomDirection(float delay=-1f){
 		roamTravelled = 0f;
 		delay = (delay == -1)? Random.Range(minChangeDelay, maxChangeDelay): delay;
-		enemy.SetVelocity(Vector2.zero);
+		rb.Sleep();
 		yield return new WaitForSeconds(delay);
 		chooseRandomDirection();
 	}
@@ -123,10 +118,10 @@ public class ZombieAI : MonoBehaviour {
 	void chooseRandomDirection(){
 		rb.Sleep();
 		transform.Rotate(0f, 0f, Random.Range(0f, 359f));
-		Vector2 direction = (forwardPoint.position - transform.position).normalized;
+		Vector2 dir = (forwardPoint.position - transform.position).normalized;
 		roamTravelled = 0f;
 		roamDistance  = Random.Range(minRoamDistance, maxRoamDistance);
-		enemy.SetVelocity(direction * enemy.movementSpeed);
+		move(dir * enemy.moveForce * Time.deltaTime);
 	}
 
 	IEnumerator attackTarget(){
@@ -145,6 +140,11 @@ public class ZombieAI : MonoBehaviour {
 			StartCoroutine(attackTarget());
 	}
 
+	void move(Vector2 force){
+		Vector2 limit = enemy.movementSpeed *  force.normalized;
+		if(rb.velocity.magnitude < limit.magnitude)
+			rb.AddForce(force, ForceMode2D.Impulse);
+	}
 
 	IEnumerator followPlayer(){
 		if(vision.target == null){
@@ -155,7 +155,8 @@ public class ZombieAI : MonoBehaviour {
 		float dist = Vector2.Distance(transform.position, vision.target.position);
 		if(dist > maxFollowDistance){
 			aiState = State.Roaming;
-			yield return false;
+			vision.target = null;
+			yield break;
 		}
 		Vector2 dir = vision.target.position - transform.position;
 		dir.Normalize();
@@ -166,7 +167,8 @@ public class ZombieAI : MonoBehaviour {
 		);
 
 		//  Move the AI
-		enemy.SetVelocity(dir * enemy.movementSpeed * chaseFactor);
+		rb.Sleep();
+		move(dir * enemy.moveForce * chaseFactor * Time.deltaTime);
 		yield return new WaitForSeconds(1 / updateRate);
 
 		if(aiState == State.Chasing)
