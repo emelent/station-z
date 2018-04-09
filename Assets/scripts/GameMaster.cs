@@ -46,7 +46,7 @@ public class GameMaster : MonoBehaviour {
 			// link healthbars
 			HealthBars[i].gameObject.SetActive(true);
 			WeaponGauges[player.playerNumber - 1].gameObject.SetActive(true);
-			newPlayer.GetComponent<Health>().LinkHealthBar(
+			newPlayer.GetComponent<HealthSystem>().LinkHealthBar(
 				HealthBars[i].Find("Bar")
 			);
 			CreatePlayerWeapon(player, StartWeapon);

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+	public float knockBackFactor =  0.5f;
 	[Range(1, 3)]
 	public int playerNumber = 1;
 	public bool canMove = true;
@@ -16,20 +17,21 @@ public class Player : MonoBehaviour {
 	public ParticleSystem bloodSplatter;
 	public Weapon weapon;
 	public Sprite[] playerSprites;
-
+	public float knockbackDuration = 0.1f;
+	public float knockBackSpeed = 8f;
 	bool inWater = false;
 	float motion = 0f;
 	Vector2 velocity = Vector2.zero;
 	Rigidbody2D rb;
 	Transform forwardPoint;	
-	Health health;
+	HealthSystem healthSys;
 	SpriteRenderer spriteRenderer;
 
 
 	void Awake(){
 		// anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
-		health = GetComponent<Health>();
+		healthSys = GetComponent<HealthSystem>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		forwardPoint = transform.Find("ForwardPoint");
 		SetPlayerNumber(playerNumber);
@@ -55,16 +57,35 @@ public class Player : MonoBehaviour {
 			transform.Rotate(0f, 0f, rotateStep);
 		}
 
+		if(Input.GetKeyDown(KeyCode.K)){
+			StartCoroutine(knockBack(knockBackSpeed));
+		}
+
 		// shoot
 		if(weapon){
 			if(weapon.fireRate > 0f){
 				if(Input.GetButton(pk + "Fire") && weapon.canShoot){
+					if(!weapon.fireCoolDown.refilling)
+						StartCoroutine(knockBack(weapon.attackKnockBack * knockBackFactor));
 					weapon.Shoot();
 				}
 			}else if(Input.GetButtonDown(pk + "Fire")){
+				if(!weapon.fireCoolDown.refilling)
+					StartCoroutine(knockBack(weapon.attackKnockBack * knockBackFactor));
 				weapon.Shoot();
 			}
 		}
+	}
+
+	IEnumerator knockBack(float force){
+		Vector2 direction = (transform.position - forwardPoint.position).normalized;
+		velocity = direction * force;
+		canMove = false;
+
+		yield return new WaitForSeconds(knockbackDuration);
+
+		canMove = true;
+		velocity = Vector2.zero;
 	}
 
 	void handleMovement(){
@@ -124,8 +145,8 @@ public class Player : MonoBehaviour {
 		velocity = v;
 	}
 
-	public Health GetHealthBar(){
-		return health;
+	public HealthSystem GetHealthBar(){
+		return healthSys;
 	}
 
 	IEnumerator die(){
@@ -138,9 +159,9 @@ public class Player : MonoBehaviour {
 		GameMaster.PlayAudio(
 			"PlayerHurt" + (int) Random.Range(1, 3)
 		);
-		health.Damage(amount);
+		healthSys.Damage(amount);
 
-		if(health.GetHealth() == 0f){
+		if(healthSys.GetHealth() == 0f){
 			StartCoroutine(die());
 		}else{
 			StartCoroutine(showDamage());
@@ -148,7 +169,7 @@ public class Player : MonoBehaviour {
 	}
 	
 	public void Reset(){
-		health.Reset();
+		healthSys.Reset();
 		spriteRenderer.color = Color.white;
 		velocity = Vector2.zero;
 		canMove = true;

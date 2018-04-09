@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
-	[SerializeField]
+	[System.Serializable]
 	public class Cooldown{
 		public float maxChill = 100f;
 		public float chill = 100f;

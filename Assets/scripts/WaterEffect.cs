@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterTiles : MonoBehaviour {
+public class WaterEffect : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider){
 		if(collider.tag == "Player"){
@@ -11,9 +11,6 @@ public class WaterTiles : MonoBehaviour {
 			GameMaster.PlayAudio("WaterSplash");
 		}else if(collider.tag == "Enemy"){
 			GameMaster.PlayAudio("WaterSplash");
-			Health health = collider.GetComponent<Health>();
-			health.drainAmount = 5f;
-			health.drainRate = 1f;
 		}
 
 	}
@@ -23,9 +20,6 @@ public class WaterTiles : MonoBehaviour {
 			collider.GetComponent<Player>()
 				.SetInWater(false);
 		}else if(collider.tag == "Enemy"){
-			Health health = collider.GetComponent<Health>();
-			health.drainAmount = 0f;
-			health.drainRate = 0f;	
 		}
 	}
 }

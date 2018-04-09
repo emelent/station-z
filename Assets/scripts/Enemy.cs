@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour {
 	public bool allowedToMove = true;
 	public float movementSpeed = 200f;
@@ -10,18 +9,20 @@ public class Enemy : MonoBehaviour {
 	public Color damageColor = Color.red;
 	public Sprite damageSprite;
 	public ParticleSystem bloodSplatter;
-	public float knockBack = 0.4f;
 
-	Health health;
+	HealthSystem health;
 	[SerializeField]
 	Vector2 velocity = Vector2.zero;
 	SpriteRenderer spriteRenderer;
 	SightRange sightRange;
 	Rigidbody2D rb;
 	Sprite sprite;
+	public float knockbackDuration = 0.1f;
+
+
 	void Awake(){
 		rb = GetComponent<Rigidbody2D>();
-		health = GetComponent<Health>();
+		health = GetComponent<HealthSystem>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		sprite = spriteRenderer.sprite;
 		sightRange =transform.Find("SightRange").GetComponent<SightRange>();
@@ -47,8 +48,17 @@ public class Enemy : MonoBehaviour {
 		health.Reset();
 	}
 
-	public Health GetHealth(){
+	public HealthSystem GetHealth(){
 		return health;
+	}
+
+	IEnumerator knockBack(Vector2 force){
+		rb.Sleep();
+		rb.velocity = force;
+		allowedToMove = false;
+		yield return new WaitForSeconds(knockbackDuration);
+		allowedToMove = true;
+		rb.Sleep();
 	}
 
 	public void Damage(float amount){
@@ -62,7 +72,8 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public void KnockBack(Vector2 force){
-		rb.AddForce(force, ForceMode2D.Impulse);
+		if(allowedToMove)
+			StartCoroutine(knockBack(force));
 	}
 
 	public void SetTarget(Transform target){

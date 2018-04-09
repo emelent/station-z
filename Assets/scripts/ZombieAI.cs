@@ -73,11 +73,11 @@ public class ZombieAI : MonoBehaviour {
 					aiState = State.Roaming;
 					chooseRandomDirection();
 				}
-				// if(attack.target){
-				// 	aiState = State.Attacking;
-				// 	rb.Sleep();
-				// 	StartCoroutine(attackTarget());
-				// }
+				if(attack.target){
+					rb.Sleep();
+					aiState = State.Attacking;
+					StartCoroutine(attackTarget());
+				}
 				break;
 		
 			case State.Attacking:
@@ -141,6 +141,7 @@ public class ZombieAI : MonoBehaviour {
 	}
 
 	void move(Vector2 force){
+		if(!enemy.allowedToMove) return;
 		Vector2 limit = enemy.movementSpeed *  force.normalized;
 		if(rb.velocity.magnitude < limit.magnitude)
 			rb.AddForce(force, ForceMode2D.Impulse);
