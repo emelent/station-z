@@ -5,11 +5,12 @@ using UnityEngine;
 public class Character: MonoBehaviour{
 	
 	public string characterName;
-	public string killer;
 	public string dieSound;
-	public float healthEffectDuration =  0.1f;
 	public Sprite healthChangeSprite;
 	public float knockBackDuration = 0.1f;
+	public float movementSpeed = 200f;
+	public bool allowedToMove = true;
+	public float healthEffectDuration =  0.1f;
 
 	[Header("Hurt Effect")]
 	public string hurtSound;
@@ -21,18 +22,18 @@ public class Character: MonoBehaviour{
 	public Color healColor = Color.cyan;
 	public ParticleSystem healParticles;
 	
-
+	[HideInInspector]
+	public string killer;
 	[HideInInspector]
 	public bool inWater;
 	
-	[HideInInspector]
-	public bool allowedToMove = false;
 
 	[HideInInspector]
 	public HealthSystem healthSystem;
+	[HideInInspector]
+	public Sprite origSprite;
 
 	SpriteRenderer spriteRenderer;
-	Sprite origSprite;
 	Rigidbody2D rb;
 	float knockBackTime = 0f;
 	[SerializeField]
