@@ -7,9 +7,9 @@ public class Character: MonoBehaviour{
 	public string characterName;
 	public string killer;
 	public string dieSound;
-	public float healthEffectDuration =  0.5f;
+	public float healthEffectDuration =  0.1f;
 	public Sprite healthChangeSprite;
-	
+	public float knockBackDuration = 0.1f;
 
 	[Header("Hurt Effect")]
 	public string hurtSound;
@@ -26,7 +26,7 @@ public class Character: MonoBehaviour{
 	public bool inWater;
 	
 	[HideInInspector]
-	public bool canMove = false;
+	public bool allowedToMove = false;
 
 	[HideInInspector]
 	public HealthSystem healthSystem;
@@ -36,7 +36,6 @@ public class Character: MonoBehaviour{
 	Rigidbody2D rb;
 	float knockBackTime = 0f;
 	[SerializeField]
-	float knockBackDuration = 0.5f;
 
 	void Awake(){
 		rb = GetComponent<Rigidbody2D>();
@@ -45,7 +44,7 @@ public class Character: MonoBehaviour{
 		origSprite = spriteRenderer.sprite;
 	}
 
-	IEnumerator showDamage(){
+	IEnumerator damageEffect(){
 		spriteRenderer.sprite = healthChangeSprite;
 		spriteRenderer.color = hurtColor;
 		//show hurt particles
@@ -53,12 +52,11 @@ public class Character: MonoBehaviour{
 			hurtParticles.Play();
 		
 		yield return new WaitForSeconds(healthEffectDuration);
-		spriteRenderer.sprite = origSprite;
-		spriteRenderer.color = Color.white;
+		clearHealthEffects();
 		
 	}
 
-	IEnumerator showHeal(){
+	IEnumerator healEffect(){
 		spriteRenderer.sprite = healthChangeSprite;
 		spriteRenderer.color = healColor;
 
@@ -67,22 +65,32 @@ public class Character: MonoBehaviour{
 			healParticles.Play();
 		
 		yield return new WaitForSeconds(healthEffectDuration);
-		spriteRenderer.sprite = origSprite;
-		spriteRenderer.color = Color.white;
+		clearHealthEffects();
 	}
 
 	void knockBackProcess(){
 		if(Time.time > knockBackTime){
-			canMove = true;
+			allowedToMove = true;
 			rb.velocity = Vector2.zero;
 		}
 	}
 
-	public void KnockBack(Vector2 force){
-		rb.Sleep();
+	IEnumerator knockBack(Vector2 force){
 		rb.velocity = force;
-		canMove = false;
-		knockBackTime = Time.time + knockBackDuration;
+		allowedToMove = false;
+		yield return new WaitForSeconds(knockBackDuration);
+		allowedToMove = true;
+		rb.velocity = Vector2.zero;
+	}
+
+	void clearHealthEffects(){
+		spriteRenderer.sprite = origSprite;
+		spriteRenderer.color = Color.white;
+	}
+
+	public void KnockBack(Vector2 force){
+		if(allowedToMove)
+			StartCoroutine(knockBack(force));
 	}
 
 	public void Hurt(float amount, string _killer="environment"){
@@ -92,12 +100,23 @@ public class Character: MonoBehaviour{
 		if(healthSystem.GetHealth() == 0f){
 			killer=_killer;
 			StopAllCoroutines();
+			clearHealthEffects();
 		}else{
-			StartCoroutine(showDamage());
+			StartCoroutine(damageEffect());
 		}
 	}
 
 	public void Heal(float amount){
 		GameMaster.PlayAudio(healSound);
+		healthSystem.Heal(amount);
+
+		StartCoroutine(healEffect());
+	}
+
+	public virtual void Reset(){
+		healthSystem.Reset();
+		clearHealthEffects();
+		rb.Sleep();
+		allowedToMove = true;
 	}
 }
