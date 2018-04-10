@@ -152,28 +152,31 @@ public class ZombieAI : MonoBehaviour {
 			aiState = State.Roaming;
 			yield return false;
 		}	
-		
-		float dist = Vector2.Distance(transform.position, vision.target.position);
-		if(dist > maxFollowDistance){
-			aiState = State.Roaming;
-			vision.target = null;
-			yield break;
+		if(vision.target != null){
+			float dist = Vector2.Distance(transform.position, vision.target.position);
+			if(dist > maxFollowDistance){
+				aiState = State.Roaming;
+				vision.target = null;
+				yield break;
+			}
+			Vector2 dir = vision.target.position - transform.position;
+			dir.Normalize();
+			// update rotation
+			transform.rotation = Quaternion.FromToRotation(
+				Vector3.up,
+				dir
+			);
+
+			//  Move the AI
+			rb.Sleep();
+			move(dir * enemy.moveForce * chaseFactor * Time.deltaTime);
+			yield return new WaitForSeconds(1 / updateRate);
+
+			if(aiState == State.Chasing)
+				StartCoroutine(followPlayer());
 		}
-		Vector2 dir = vision.target.position - transform.position;
-		dir.Normalize();
-		// update rotation
-		transform.rotation = Quaternion.FromToRotation(
-			Vector3.up,
-			dir
-		);
-
-		//  Move the AI
-		rb.Sleep();
-		move(dir * enemy.moveForce * chaseFactor * Time.deltaTime);
-		yield return new WaitForSeconds(1 / updateRate);
-
-		if(aiState == State.Chasing)
-			StartCoroutine(followPlayer());
+		
+			
 	}
 
 	void Roam(){

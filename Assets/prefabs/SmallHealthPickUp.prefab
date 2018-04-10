@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 61118794708095064}
   - component: {fileID: 114739924768737032}
   m_Layer: 0
-  m_Name: HealthPickUp
-  m_TagString: Untagged
+  m_Name: SmallHealthPickUp
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,7 +53,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,8 +113,8 @@ SpriteRenderer:
   m_SortingLayerID: -1158697247
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300016, guid: 5753bf37540dc42568884c476819ba1e, type: 3}
-  m_Color: {r: 0.7205882, g: 0.1748486, b: 0.1748486, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 7210f4604532740b18d498fd9a8d57a8, type: 3}
+  m_Color: {r: 0.4236771, g: 0.8455882, b: 0.03108778, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -122,4 +122,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
+  m_MaskInteraction: 0

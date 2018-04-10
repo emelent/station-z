@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	public float knockBackFactor =  0.5f;
+	public float recoilFactor =  0.5f;
+	public float damageDuration = 0.2f;
 	[Range(1, 3)]
 	public int playerNumber = 1;
-	public bool canMove = true;
+	public bool allowedToMove = true;
 	public float movementSpeed = 200f;
 	public float rotateStep = 1f;
 	[Range(0f, 1f)]
 	public float waterFriction = 0.9f;
 	public Color damageColor = Color.red;
+	public Sprite damageSprite;
 	public ParticleSystem bloodSplatter;
 	public Weapon weapon;
 	public Sprite[] playerSprites;
@@ -26,13 +28,14 @@ public class Player : MonoBehaviour {
 	Transform forwardPoint;	
 	HealthSystem healthSys;
 	SpriteRenderer spriteRenderer;
-
+	Sprite origSprite;
 
 	void Awake(){
 		// anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 		healthSys = GetComponent<HealthSystem>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		origSprite = spriteRenderer.sprite;
 		forwardPoint = transform.Find("ForwardPoint");
 		SetPlayerNumber(playerNumber);
 	}
@@ -57,39 +60,49 @@ public class Player : MonoBehaviour {
 			transform.Rotate(0f, 0f, rotateStep);
 		}
 
-		if(Input.GetKeyDown(KeyCode.K)){
-			StartCoroutine(knockBack(knockBackSpeed));
-		}
-
 		// shoot
 		if(weapon){
 			if(weapon.fireRate > 0f){
 				if(Input.GetButton(pk + "Fire") && weapon.canShoot){
 					if(!weapon.fireCoolDown.refilling)
-						StartCoroutine(knockBack(weapon.attackKnockBack * knockBackFactor));
+						StartCoroutine(recoil(weapon.attackKnockBack * recoilFactor));
 					weapon.Shoot();
 				}
 			}else if(Input.GetButtonDown(pk + "Fire")){
 				if(!weapon.fireCoolDown.refilling)
-					StartCoroutine(knockBack(weapon.attackKnockBack * knockBackFactor));
+					StartCoroutine(recoil(weapon.attackKnockBack * recoilFactor));
 				weapon.Shoot();
 			}
 		}
 	}
 
-	IEnumerator knockBack(float force){
+	IEnumerator recoil(float force){
 		Vector2 direction = (transform.position - forwardPoint.position).normalized;
 		velocity = direction * force;
-		canMove = false;
+		allowedToMove = false;
 
 		yield return new WaitForSeconds(knockbackDuration);
 
-		canMove = true;
+		allowedToMove = true;
 		velocity = Vector2.zero;
 	}
 
+	IEnumerator knockBack(Vector2 force){
+
+		velocity = force;
+		allowedToMove = false;
+		yield return new WaitForSeconds(knockbackDuration);
+		allowedToMove = true;
+		velocity = Vector2.zero;
+	}
+
+	public void KnockBack(Vector2 force){
+		if(allowedToMove)
+			StartCoroutine(knockBack(force));
+	}
+
 	void handleMovement(){
-		if(canMove){
+		if(allowedToMove){
 			Vector2 direction = (transform.position - forwardPoint.position).normalized;
 			velocity = direction * motion * movementSpeed * Time.deltaTime;
 			if(IsInWater()){
@@ -101,14 +114,16 @@ public class Player : MonoBehaviour {
 	}
 
 	IEnumerator showDamage(){
+		spriteRenderer.sprite = damageSprite;
 		spriteRenderer.color = damageColor;
-		
+
 		//blood particles
 		if(bloodSplatter){
 			bloodSplatter.Play();
 		}
 		
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(damageDuration);
+		spriteRenderer.sprite = origSprite;
 		spriteRenderer.color = Color.white;
 	}
 
@@ -118,7 +133,9 @@ public class Player : MonoBehaviour {
 
 		playerNumber = num;
 		spriteRenderer.sprite = playerSprites[num -1];
+		origSprite = playerSprites[num -1];
 	}
+	
 	public bool IsInWater(){
 		return inWater;
 	}
@@ -170,8 +187,9 @@ public class Player : MonoBehaviour {
 	
 	public void Reset(){
 		healthSys.Reset();
+		spriteRenderer.sprite = origSprite;
 		spriteRenderer.color = Color.white;
 		velocity = Vector2.zero;
-		canMove = true;
+		allowedToMove = true;
 	}
 }

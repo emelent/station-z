@@ -1,10 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour {
 
 	const int MAX_PLAYERS = 3;
+
+	public SpriteRenderer indicator;
+	public Canvas canvas;
+	public Text text;
+
+
+	[Range(0f, 1f)]
+	public float dropChance = 0.7f;
 	[Range(1, MAX_PLAYERS)]
 	public uint numberOfPlayers = MAX_PLAYERS;
 	public float respawnDelay = 2f;	
@@ -19,28 +29,38 @@ public class GameMaster : MonoBehaviour {
 	public Transform[] WeaponGauges = new Transform[MAX_PLAYERS];
 	public Transform[] SpawnLocations;
 	public Transform[] Weapons;
-
+	public Transform[] PickupPrefabs;
 
 	[HideInInspector]
 	public static GameMaster instance;
 	AudioManager audioManager;
-
+	public int enemyCount= 5;
+	float startTime = 0f;
+	int  deaths;
 	// Use this for initialization
 	void Start () {
 		if(instance == null){
 			instance = this;
 		}
 		audioManager = GetComponent<AudioManager>();
-
+		startTime = Time.time;
+		deaths = 0;
 		spawnPlayers();
 	}
 	
+	void Update(){
+		if(Input.GetKeyDown(KeyCode.Backspace)){
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);	
+		}
+	}
 	void spawnPlayers(){
 		for(int i=0; i < numberOfPlayers; i++){
 			Transform newPlayer = (Transform) Instantiate(
 				PlayerPrefab,
-				SpawnLocations[i]
+				SpawnLocations[i].position,
+				SpawnLocations[i].rotation
 			);
+
 			Player player = newPlayer.GetComponent<Player>();
 			player.SetPlayerNumber(i+1);
 			// link healthbars
@@ -83,6 +103,7 @@ public class GameMaster : MonoBehaviour {
 		CreatePlayerWeapon(player, StartWeapon);
 	
 		player.gameObject.SetActive(true);
+		deaths ++;
 	}
 
 
@@ -91,6 +112,27 @@ public class GameMaster : MonoBehaviour {
 		// TODO drop item
 
 		// TODO use an object pool
+		if(Random.Range(0f, 1f) > dropChance){
+			Transform pickup = PickupPrefabs[Random.Range(0, PickupPrefabs.Length)];
+			if(pickup.tag  != "Pickup"){
+				pickup.GetComponent<WeaponPickup>()
+					.type = (WeaponPickup.WeaponType) Random.Range(0, 3); 
+			}
+			Instantiate(
+				pickup,
+				enemy.transform.position,
+				Quaternion.identity
+			);
+		}
+		enemyCount --;
+		if(enemyCount == 0){
+			indicator.color = Color.green;
+			float dur = (Time.time - startTime / 1000) / 60;
+			string message = "Time: " + dur.ToString() + " minutes \nDeaths: " + deaths.ToString();
+			canvas.gameObject.SetActive(true);
+			text.text = message;
+			respawnPlayers = false;
+		}
 		Destroy(enemy.gameObject);
 	}
 

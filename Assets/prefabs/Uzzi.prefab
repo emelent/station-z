@@ -142,6 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84658e5859b70405da2d49384954a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireCoolDown:
+    maxChill: 100
+    chill: 100
+    refilling: 0
   heatRate: 5
   coolRate: 20
   cameraShakeAmount: 0
@@ -149,7 +153,7 @@ MonoBehaviour:
   fireRate: 10
   attackDamage: 8
   attackRange: 15
-  attackKnockBack: 2
+  attackKnockBack: 4
   fireSound: Uzzi
   muzzleFlash: {fileID: 4118574974482326}
   hitParticlePrefab: {fileID: 4372971547677060, guid: 314f832a1683148bea81fb333b54b241,
@@ -172,6 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84658e5859b70405da2d49384954a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireCoolDown:
+    maxChill: 100
+    chill: 100
+    refilling: 0
   heatRate: 10
   coolRate: 0.1
   cameraShakeAmount: 0.01

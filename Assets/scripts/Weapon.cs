@@ -120,6 +120,7 @@ public class Weapon : MonoBehaviour {
 				Player player = hit.collider.GetComponent<Player>();
 				float dmg = (GameMaster.instance.friendlyFire)?  attackDamage:0f;
 				player.Damage(dmg);
+				player.KnockBack(dir * attackKnockBack);
 			}
 		}
 		

@@ -160,7 +160,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1018731237963346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.326451, y: -8.044569, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4790128314772054}
@@ -316,12 +316,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26fe682bcc6e40b4b3d8a5a6cdef0c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recoilFactor: 0.5
+  damageDuration: 0.2
   playerNumber: 1
-  canMove: 1
+  allowedToMove: 1
   movementSpeed: 200
   rotateStep: 3
   waterFriction: 0.9
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  damageColor: {r: 1, g: 1, b: 1, a: 1}
+  damageSprite: {fileID: 21300018, guid: 445e629f911a44ca992ddfd26d4a0e16, type: 3}
   bloodSplatter: {fileID: 198438223785268710}
   weapon: {fileID: 0}
   playerSprites:
