@@ -19,7 +19,9 @@ public class WaterEffect : MonoBehaviour {
 		if(collider.tag == "Player"){
 			collider.GetComponent<Player>()
 				.SetInWater(false);
+			GameMaster.PlayAudio("WaterSplash");
 		}else if(collider.tag == "Enemy"){
+			GameMaster.PlayAudio("WaterSplash");
 		}
 	}
 }
