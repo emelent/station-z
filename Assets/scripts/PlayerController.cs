@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour {
 			rb.velocity = dir * motion * character.movementSpeed * Time.deltaTime;
 		}
 
+		if(Input.GetKeyDown(KeyCode.K)){
+			Vector2 dir = (transform.position - forwardPoint.position).normalized;
+			character.KnockBack(dir *  8f);
+		}
 		// turn player
 		if(Input.GetButton(pk + "TurnRight")){
 			transform.Rotate(0f, 0f, -rotateStep);
