@@ -3,9 +3,10 @@ BUGS:
 
 	#0 - Player healthbar doesn't always go down to zero
 
-TODO:
 
-	- Enemy drop items on death
+TODO:
+	- Switch to object pools
+	
 	- Add other weapons
 
 	- Create zombie death effect

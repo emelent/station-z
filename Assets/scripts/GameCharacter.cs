@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HealthSystem))]
 public class GameCharacter: MonoBehaviour{
 	
 	public string characterName;
@@ -19,7 +20,6 @@ public class GameCharacter: MonoBehaviour{
 	[Header("Heal Effect")]
 	public string healSound;
 	public Color healColor = Color.cyan;
-	public ParticleSystem healParticles;
 	
 	[HideInInspector]
 	public string killer;
@@ -35,6 +35,7 @@ public class GameCharacter: MonoBehaviour{
 	SpriteRenderer spriteRenderer;
 	Rigidbody2D rb;
 	ParticleSystem hurtParticles;
+	ParticleSystem healParticles;
 
 	void Awake(){
 		rb = GetComponent<Rigidbody2D>();
@@ -84,6 +85,11 @@ public class GameCharacter: MonoBehaviour{
 		rb.velocity = Vector2.zero;
 	}
 
+	IEnumerator die(){
+		yield return new WaitForEndOfFrame();
+		StopAllCoroutines();
+		GM.KillCharacter(this);
+	}
 	void clearHealthEffects(){
 		spriteRenderer.sprite = origSprite;
 		spriteRenderer.color = Color.white;
@@ -100,8 +106,7 @@ public class GameCharacter: MonoBehaviour{
 
 		if(healthSystem.GetHealth() == 0f){
 			killer=_killer;
-			StopAllCoroutines();
-			clearHealthEffects();
+			StartCoroutine(die());
 		}else{
 			StartCoroutine(damageEffect());
 		}

@@ -87,9 +87,9 @@ GameObject:
   - component: {fileID: 212835478066572086}
   - component: {fileID: 50479774128480008}
   - component: {fileID: 61181769761860768}
-  - component: {fileID: 114679938488547652}
-  - component: {fileID: 114714880140769048}
-  - component: {fileID: 114166079878979924}
+  - component: {fileID: 114602505166478666}
+  - component: {fileID: 114798319549185704}
+  - component: {fileID: 114529412980694516}
   m_Layer: 11
   m_Name: Zombie
   m_TagString: Enemy
@@ -164,7 +164,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680453541626172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.0012040138, y: -6.9129467, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4284675140619412}
@@ -342,7 +342,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sightRange: {fileID: 114058783421416814}
---- !u!114 &114166079878979924
+--- !u!114 &114321622889797032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715303920094294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddf853a1bfcf48ba9a75f034c0aebdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+--- !u!114 &114529412980694516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680453541626172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e2843e3c35043c09b02df6e73a0d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114602505166478666
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -357,20 +380,8 @@ MonoBehaviour:
   drainAmount: 0
   drainRate: 0
   HealthBar: {fileID: 0}
-  mHealth: 0
---- !u!114 &114321622889797032
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1715303920094294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddf853a1bfcf48ba9a75f034c0aebdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
---- !u!114 &114679938488547652
+  mHealth: 100
+--- !u!114 &114798319549185704
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -378,40 +389,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1680453541626172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51de7ab1d4bfd451694fa426796c5d60, type: 3}
+  m_Script: {fileID: 11500000, guid: 64fda83a6622246959408a0d54fe6d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: Zombie
+  dieSound: ZombieDie
+  healthChangeSprite: {fileID: 21300030, guid: fbf28bcf0a167443e901841a6758b7e1, type: 3}
+  knockBackDuration: 0.1
+  movementSpeed: 200
   allowedToMove: 1
-  movementSpeed: 10
-  moveForce: 100
-  damageColor: {r: 1, g: 1, b: 1, a: 1}
-  damageSprite: {fileID: 21300030, guid: fbf28bcf0a167443e901841a6758b7e1, type: 3}
-  bloodSplatter: {fileID: 198270794834407972}
-  velocity: {x: 0, y: 0}
-  knockbackDuration: 0.1
---- !u!114 &114714880140769048
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1680453541626172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aaa6e257ee7043159c891f5d7bdd796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aiState: 0
-  chaseFactor: 1.8
-  minChangeDelay: 1
-  maxChangeDelay: 3
-  minRoamDistance: 100
-  maxRoamDistance: 400
-  updateRate: 1
-  maxFollowDistance: 15
-  attackDamage: 10
-  attackRate: 1
-  vision: {fileID: 114058783421416814}
-  attack: {fileID: 114321622889797032}
+  healthEffectDuration: 0.1
+  hurtSound: ZombieHurt
+  hurtColor: {r: 1, g: 1, b: 1, a: 1}
+  healSound: ZombieHeal
+  healColor: {r: 0, g: 1, b: 1, a: 1}
+  killer: 
+  inWater: 0
+  healthSystem: {fileID: 0}
+  origSprite: {fileID: 0}
 --- !u!198 &198270794834407972
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -472,7 +467,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1627777690
+  randomSeed: -615408905
   InitialModule:
     serializedVersion: 3
     enabled: 1

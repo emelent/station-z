@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GM : MonoBehaviour {
 	public static GM instance;
-	
+
 	[System.Serializable]
 	public class PlayerHUD{
 		public Transform healthGauge;
@@ -26,7 +26,7 @@ public class GM : MonoBehaviour {
 
 	[Range(1, MAX_PLAYERS)]
 	public uint numberOfPlayers = MAX_PLAYERS;
-	public float respawnDelay = 2f;	
+	public float respawnDelay = 4f;	
 	public bool respawnPlayers = true;
 	public bool friendlyFire = true;
 
@@ -107,6 +107,7 @@ public class GM : MonoBehaviour {
 
 
 	void killPlayer(PlayerController playerCtrl){
+		print("killing player");
 		playerCtrl.gameObject.SetActive(false);
 		if(respawnPlayers)
 			StartCoroutine(respawnPlayer(playerCtrl));
@@ -161,6 +162,7 @@ public class GM : MonoBehaviour {
 	}
 
 	public static void KillCharacter(GameCharacter character){
+		print("Killing character");
 		if(character.tag == "Player"){
 			instance.killPlayer(character.GetComponent<PlayerController>());
 		}else if(character.tag == "Enemy"){

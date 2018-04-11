@@ -72,8 +72,8 @@ public class PlayerController : MonoBehaviour {
 
 		playerNumber = num;
 		character.name = "player" + playerNumber;
-		character.origSprite = playerSprites[num -1];
-		GetComponent<SpriteRenderer>().sprite = playerSprites[num -1];
+		character.origSprite = playerSprites[num - 1];
+		GetComponent<SpriteRenderer>().sprite = playerSprites[num - 1];
 	}
 
 	public void EquipItem(Transform itemPrefab){
