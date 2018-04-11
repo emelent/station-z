@@ -20,10 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4475302424274204}
   - component: {fileID: 212049753812308242}
-  - component: {fileID: 114660662046288082}
+  - component: {fileID: 61752835102235096}
   - component: {fileID: 50555610694243786}
   - component: {fileID: 114880112499096936}
-  - component: {fileID: 61752835102235096}
+  - component: {fileID: 114829146661253766}
+  - component: {fileID: 114412311576819132}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -42,7 +43,7 @@ GameObject:
   - component: {fileID: 198438223785268710}
   - component: {fileID: 199110687507224418}
   m_Layer: 12
-  m_Name: BloodSplatter
+  m_Name: HurtParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +161,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1018731237963346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4516873, y: 7.482719, z: 0}
+  m_LocalPosition: {x: 1.9501748, y: 2.2605453, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4790128314772054}
@@ -305,7 +306,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114660662046288082
+--- !u!114 &114412311576819132
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -313,26 +314,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1018731237963346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e26fe682bcc6e40b4b3d8a5a6cdef0c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 64fda83a6622246959408a0d54fe6d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: player
+  dieSound: PlayerDie
+  healthChangeSprite: {fileID: 21300018, guid: 445e629f911a44ca992ddfd26d4a0e16, type: 3}
+  knockBackDuration: 0.1
+  movementSpeed: 200
+  allowedToMove: 1
+  healthEffectDuration: 0.1
+  hurtSound: PlayerHurt
+  hurtColor: {r: 1, g: 1, b: 1, a: 1}
+  healSound: PlayerHeal
+  healColor: {r: 0, g: 1, b: 1, a: 1}
+  healParticles: {fileID: 0}
+  killer: 
+  inWater: 0
+  healthSystem: {fileID: 0}
+  origSprite: {fileID: 0}
+--- !u!114 &114829146661253766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1018731237963346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdd2a14a205f4a36bccacede3ac2205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   recoilFactor: 0.5
-  damageDuration: 0.2
   playerNumber: 1
-  allowedToMove: 1
-  movementSpeed: 200
-  rotateStep: 3
-  waterFriction: 0.9
-  damageColor: {r: 1, g: 1, b: 1, a: 1}
-  damageSprite: {fileID: 21300018, guid: 445e629f911a44ca992ddfd26d4a0e16, type: 3}
-  bloodSplatter: {fileID: 198438223785268710}
+  rotateStep: 4
+  playerSprites: []
   weapon: {fileID: 0}
-  playerSprites:
-  - {fileID: 21300000, guid: 445e629f911a44ca992ddfd26d4a0e16, type: 3}
-  - {fileID: 21300002, guid: 445e629f911a44ca992ddfd26d4a0e16, type: 3}
-  - {fileID: 21300004, guid: 445e629f911a44ca992ddfd26d4a0e16, type: 3}
-  knockbackDuration: 0.1
-  knockBackSpeed: 8
 --- !u!114 &114880112499096936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -348,7 +364,7 @@ MonoBehaviour:
   drainAmount: 0
   drainRate: 0
   HealthBar: {fileID: 0}
-  mHealth: 0
+  mHealth: 100
 --- !u!198 &198438223785268710
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -409,7 +425,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1189981220
+  randomSeed: -708884531
   InitialModule:
     serializedVersion: 3
     enabled: 1

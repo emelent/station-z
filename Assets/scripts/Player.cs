@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
 	public Color damageColor = Color.red;
 	public Sprite damageSprite;
 	public ParticleSystem bloodSplatter;
-	public Weapon weapon;
+	public WeaponOld weapon;
 	public Sprite[] playerSprites;
 	public float knockbackDuration = 0.1f;
 	public float knockBackSpeed = 8f;
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour {
 		
 	}
 
-	public void EquipWeapon(Weapon _weapon){
+	public void EquipWeapon(WeaponOld _weapon){
 		if(weapon){
 			Destroy(weapon.gameObject);
 		}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character: MonoBehaviour{
+public class GameCharacter: MonoBehaviour{
 	
 	public string characterName;
 	public string dieSound;
@@ -15,7 +15,6 @@ public class Character: MonoBehaviour{
 	[Header("Hurt Effect")]
 	public string hurtSound;
 	public Color hurtColor  = Color.red;
-	public ParticleSystem hurtParticles;
 
 	[Header("Heal Effect")]
 	public string healSound;
@@ -35,15 +34,23 @@ public class Character: MonoBehaviour{
 
 	SpriteRenderer spriteRenderer;
 	Rigidbody2D rb;
-	float knockBackTime = 0f;
-	[SerializeField]
+	ParticleSystem hurtParticles;
 
 	void Awake(){
 		rb = GetComponent<Rigidbody2D>();
 		healthSystem = GetComponent<HealthSystem>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		origSprite = spriteRenderer.sprite;
+
+
+		Transform t = transform.Find("HurtParticles");
+		if(t)
+			hurtParticles = t.GetComponent<ParticleSystem>();
+		t = transform.Find("HealParticles");
+		if(t)
+			healParticles = t.GetComponent<ParticleSystem>();
 	}
+
 
 	IEnumerator damageEffect(){
 		spriteRenderer.sprite = healthChangeSprite;
@@ -69,13 +76,6 @@ public class Character: MonoBehaviour{
 		clearHealthEffects();
 	}
 
-	void knockBackProcess(){
-		if(Time.time > knockBackTime){
-			allowedToMove = true;
-			rb.velocity = Vector2.zero;
-		}
-	}
-
 	IEnumerator knockBack(Vector2 force){
 		rb.velocity = force;
 		allowedToMove = false;
@@ -95,7 +95,7 @@ public class Character: MonoBehaviour{
 	}
 
 	public void Hurt(float amount, string _killer="environment"){
-		GameMaster.PlayAudio(hurtSound);
+		// GameMaster.PlayAudio(hurtSound);
 		healthSystem.Damage(amount);
 
 		if(healthSystem.GetHealth() == 0f){
@@ -108,7 +108,7 @@ public class Character: MonoBehaviour{
 	}
 
 	public void Heal(float amount){
-		GameMaster.PlayAudio(healSound);
+		// GameMaster.PlayAudio(healSound);
 		healthSystem.Heal(amount);
 
 		StartCoroutine(healEffect());

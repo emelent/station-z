@@ -9,7 +9,7 @@ public class ZombieSpawner : MonoBehaviour {
 	public float maxZombies;
 	public Transform[] spawnPoints;
 
-	float spawnTime = 20f;
+	// float spawnTime = 20f;
 	
 	// Update is called once per frame
 	void Update () {

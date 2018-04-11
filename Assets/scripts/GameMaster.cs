@@ -76,7 +76,7 @@ public class GameMaster : MonoBehaviour {
 	public void CreatePlayerWeapon(Player player, Transform weaponPrefab){
 		//create and equip starter weapon
 		Transform newWeapon = (Transform)  Instantiate(weaponPrefab, player.transform);
-		Weapon weapon = newWeapon.GetComponent<Weapon>();
+		WeaponOld weapon = newWeapon.GetComponent<WeaponOld>();
 		// link weapon gauges
 		weapon.LinkGaugeBar(WeaponGauges[player.playerNumber - 1].Find("Bar"));
 		player.EquipWeapon(weapon);
