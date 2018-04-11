@@ -7,10 +7,9 @@ public class AlertRange : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider){
 		if(collider.tag == "Enemy"){
-			SightRange s = collider.GetComponent<ZombieAI>().vision;
+			SightRange s = collider.GetComponent<ZombieAI>().sightRange;
 			if(s.target == null)
 				s.target = sightRange.target;
-
 		}
 	}
 }

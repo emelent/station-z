@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 198270794834407972}
   - component: {fileID: 199895163054641412}
   m_Layer: 12
-  m_Name: BloodSplatter
+  m_Name: HurtParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 61181769761860768}
   - component: {fileID: 114602505166478666}
   - component: {fileID: 114798319549185704}
-  - component: {fileID: 114529412980694516}
+  - component: {fileID: 114922703330437046}
   m_Layer: 11
   m_Name: Zombie
   m_TagString: Enemy
@@ -354,17 +354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
---- !u!114 &114529412980694516
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1680453541626172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55e2843e3c35043c09b02df6e73a0d93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114602505166478666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -407,6 +396,28 @@ MonoBehaviour:
   inWater: 0
   healthSystem: {fileID: 0}
   origSprite: {fileID: 0}
+--- !u!114 &114922703330437046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680453541626172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c18468b83d644bbaa1d7bf48de5c04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiState: 0
+  chaseFactor: 1.2
+  attackDamage: 10
+  attackRate: 2
+  sightRange: {fileID: 0}
+  minChangeDelay: 1
+  maxChangeDelay: 2
+  minRoamDistance: 100
+  maxRoamDistance: 400
+  updateRate: 2
+  maxFollowDistance: 100
 --- !u!198 &198270794834407972
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -467,7 +478,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -615408905
+  randomSeed: -12244042
   InitialModule:
     serializedVersion: 3
     enabled: 1
