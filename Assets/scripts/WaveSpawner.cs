@@ -74,15 +74,15 @@ public class WaveSpawner : MonoBehaviour {
 
 	void WaveCompleted()
 	{
-		Debug.Log("Wave Completed!");
-
 		state = SpawnState.COUNTING;
 		waveCountdown = timeBetweenWaves;
 
 		if (nextWave + 1 > waves.Length - 1)
 		{
 			// nextWave = 0;
-			Debug.Log("ALL WAVES COMPLETE! Looping...");
+			state = SpawnState.WAITING;
+			GM.EndGame();
+			gameObject.SetActive(false);
 		}
 		else
 		{
@@ -106,7 +106,6 @@ public class WaveSpawner : MonoBehaviour {
 
 	IEnumerator SpawnWave(Wave _wave)
 	{
-		Debug.Log("Spawning Wave: " + _wave.name);
 		state = SpawnState.SPAWNING;
 
 		for (int i = 0; i < _wave.count; i++)
@@ -122,8 +121,6 @@ public class WaveSpawner : MonoBehaviour {
 
 	void SpawnEnemy(Transform _enemy)
 	{
-		Debug.Log("Spawning Enemy: " + _enemy.name);
-
 		Transform _sp = spawnPoints[ Random.Range (0, spawnPoints.Length) ];
 
 		// zero out the z axis coz inherits from the parents

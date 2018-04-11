@@ -44,6 +44,10 @@ public class WeaponRanged: Weapon{
 			if(c && (c.tag != "Player" || GM.instance.friendlyFire)){
 				c.Hurt(attackDamage, attacker);
 				c.KnockBack(dir * attackKnockBack);
+				ZombieAI ai = c.GetComponent<ZombieAI>();
+				if(ai){
+					ai.SetTarget(transform);
+				}
 			}
 		}
 		

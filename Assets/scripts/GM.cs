@@ -64,7 +64,7 @@ public class GM : MonoBehaviour {
 	}
 	void spawnPlayers(){
 		for(int i=0; i < numberOfPlayers; i++){
-			int r = Random.RandomRange(0, SpawnLocations.Length);
+			int r = Random.Range(0, SpawnLocations.Length);
 			Transform player = (Transform) Instantiate(
 				PlayerPrefab,
 				SpawnLocations[r].position,
@@ -138,6 +138,14 @@ public class GM : MonoBehaviour {
 		}
 	}
 
+	void endGame(){
+		float time = (Time.time - startTime) / 60;
+		if(canvas && text){
+			canvas.gameObject.SetActive(true);
+			text.text = "Time: " + time + " minutes\nDeaths: " + deathCount;
+		}
+	}
+
 	public static void PlayAudio(string name){
 		instance.audioManager.PlaySound(name);
 	}
@@ -154,5 +162,9 @@ public class GM : MonoBehaviour {
 
 	public static void ShakeCamera(float amount, float length){
 		instance.cameraShake.Shake(amount, length);
+	}
+
+	public static void EndGame(){
+		instance.endGame();
 	}
 }

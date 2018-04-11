@@ -723,7 +723,7 @@ Transform:
   m_GameObject: {fileID: 1689721842215958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.15, y: 0, z: 0}
-  m_LocalScale: {x: 4.38, y: 0.23, z: 1}
+  m_LocalScale: {x: 6, y: 0.23, z: 1}
   m_Children: []
   m_Father: {fileID: 4092248810504358}
   m_RootOrder: 1
@@ -2245,7 +2245,7 @@ MonoBehaviour:
   sounds:
   - name: PlayerHurt
     clip: {fileID: 8300000, guid: 8fdb48b34ddd841b19c08afae651443e, type: 3}
-    volume: 0.02
+    volume: 0
     pitch: 1
     randomVolume: 0.167
     randomPitch: 0.067
@@ -2323,7 +2323,7 @@ MonoBehaviour:
     randomPitch: 0
   - name: ZombieHurt
     clip: {fileID: 8300000, guid: 29956964431ee4b5099e2a09bc9862a3, type: 3}
-    volume: 0.3
+    volume: 0
     pitch: 0.5
     randomVolume: 0
     randomPitch: 0
