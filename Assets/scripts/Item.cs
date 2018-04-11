@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Item : MonoBehaviour {
 
-	protected void effect(Collider2D collider){
+	public string collectSound = "HealthPickUp";
+
+	protected void playAudio(){
+		GM.PlayAudio(collectSound);
+	}
+
+	protected virtual void effect(Collider2D collider){
 		Destroy(gameObject);
 	}
 

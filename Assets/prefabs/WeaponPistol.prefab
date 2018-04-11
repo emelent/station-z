@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 114471896547275448}
   m_Layer: 0
   m_Name: WeaponPistol
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   whatToHit:
     serializedVersion: 2
     m_Bits: 6656
-  attackKnockBack: 2
+  attackKnockBack: 1
   attackRate: 0
   attackDamage: 10
   attackSound: Pistol

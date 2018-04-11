@@ -76,9 +76,9 @@ public class PlayerController : MonoBehaviour {
 		GetComponent<SpriteRenderer>().sprite = playerSprites[num -1];
 	}
 
-	public void EquipItem(Transform item){
-		if(!item) return;
-
+	public void EquipItem(Transform itemPrefab){
+		if(!itemPrefab) return;
+		Transform  item = (Transform) Instantiate(itemPrefab, transform);
 		if(item.tag == "Weapon"){
 			EquipWeapon(item.GetComponent<Weapon>());
 		}

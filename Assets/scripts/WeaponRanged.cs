@@ -41,7 +41,7 @@ public class WeaponRanged: Weapon{
 			hitPos = hit.point;
 			Debug.DrawLine(firePos, hit.point, Color.red);
 			GameCharacter c = hit.collider.GetComponent<GameCharacter>();
-			if(c && c.tag != "Player" || GM.instance.friendlyFire){
+			if(c && (c.tag != "Player" || GM.instance.friendlyFire)){
 				c.Hurt(attackDamage, attacker);
 				c.KnockBack(dir * attackKnockBack);
 			}

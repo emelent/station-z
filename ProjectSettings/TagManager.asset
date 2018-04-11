@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Pickup
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -46,7 +47,7 @@ TagManager:
   - name: Tiles
     uniqueID: 982879201
     locked: 0
-  - name: Pickup
+  - name: Item
     uniqueID: 112496591
     locked: 0
   - name: Enemy
@@ -57,4 +58,7 @@ TagManager:
     locked: 0
   - name: Hud
     uniqueID: 1606701549
+    locked: 0
+  - name: Weapon
+    uniqueID: 556477623
     locked: 0

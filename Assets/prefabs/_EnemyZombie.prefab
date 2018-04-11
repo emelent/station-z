@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 114714880140769048}
   - component: {fileID: 114166079878979924}
   m_Layer: 11
-  m_Name: EnemyZombie
+  m_Name: _EnemyZombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

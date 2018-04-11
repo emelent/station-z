@@ -5,23 +5,19 @@ using UnityEngine;
 public class WaterEffect : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider){
-		if(collider.tag == "Player"){
-			collider.GetComponent<Player>()
-				.SetInWater(true);
-			GameMaster.PlayAudio("WaterSplash");
-		}else if(collider.tag == "Enemy"){
-			GameMaster.PlayAudio("WaterSplash");
+		GameCharacter  character = collider.GetComponent<GameCharacter>();
+		if(character){
+			character.inWater = true; 
+			GM.PlayAudio("WaterIn");
 		}
 
 	}
 
 	void OnTriggerExit2D(Collider2D collider){
-		if(collider.tag == "Player"){
-			collider.GetComponent<Player>()
-				.SetInWater(false);
-			GameMaster.PlayAudio("WaterSplash");
-		}else if(collider.tag == "Enemy"){
-			GameMaster.PlayAudio("WaterSplash");
+		GameCharacter  character = collider.GetComponent<GameCharacter>();
+		if(character){
+			character.inWater = false;
+			GM.PlayAudio("WaterOut");
 		}
 	}
 }

@@ -95,7 +95,7 @@ public class GameCharacter: MonoBehaviour{
 	}
 
 	public void Hurt(float amount, string _killer="environment"){
-		// GameMaster.PlayAudio(hurtSound);
+		GM.PlayAudio(hurtSound);
 		healthSystem.Damage(amount);
 
 		if(healthSystem.GetHealth() == 0f){
@@ -108,7 +108,6 @@ public class GameCharacter: MonoBehaviour{
 	}
 
 	public void Heal(float amount){
-		// GameMaster.PlayAudio(healSound);
 		healthSystem.Heal(amount);
 
 		StartCoroutine(healEffect());
@@ -119,5 +118,6 @@ public class GameCharacter: MonoBehaviour{
 		clearHealthEffects();
 		rb.Sleep();
 		allowedToMove = true;
+		inWater = false;
 	}
 }
