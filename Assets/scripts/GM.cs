@@ -22,7 +22,7 @@ public class GM : MonoBehaviour {
 
 
 	[Range(0f, 1f)]
-	public float dropChance = 0.4f;
+	public float dropChance = 0.6f;
 
 	[Range(1, MAX_PLAYERS)]
 	public uint numberOfPlayers = MAX_PLAYERS;
@@ -132,9 +132,6 @@ public class GM : MonoBehaviour {
 		if(Random.Range(0f, 1f) > dropChance){
 			Transform item = DropItemPrefabs[Random.Range(0, DropItemPrefabs.Length)];
 			Instantiate(item, position, Quaternion.identity);
-			print("item dropped");
-		}else{
-			print("no item dropped");
 		}
 	}
 

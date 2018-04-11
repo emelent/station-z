@@ -46,7 +46,9 @@ public class DumbZombieAI: ZombieAI {
 		
 			case State.Attacking:
 				if(attackRange.target != null){
-					if(Time.time > attackTime)
+					if(attackRange.target.gameObject != sightRange.target.gameObject){
+						aiState = State.Chasing;
+					}else if(Time.time > attackTime)
 						attackTarget();
 				}else{
 					if(sightRange.target){
