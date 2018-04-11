@@ -29,7 +29,7 @@ public class _ZombieAI : MonoBehaviour {
 
 
 	[Header("Attack Components")]
-	public SightRange vision;
+	public SightRange sightRange;
 	public AttackRange attack;
 
 
@@ -60,15 +60,15 @@ public class _ZombieAI : MonoBehaviour {
 	void Update(){
 		switch(aiState){
 			case State.Roaming:
-				if(vision.target){
+				if(sightRange.target){
 					aiState = State.Chasing;
 					GameMaster.PlayAudio("ZombieChase");
-					StartCoroutine(followPlayer());
+					StartCoroutine(followTarget());
 				}
 				break;
 
 			case State.Chasing:
-				if(!vision.target){
+				if(!sightRange.target){
 					// target lost go back to roaming
 					aiState = State.Roaming;
 					chooseRandomDirection();
@@ -82,9 +82,9 @@ public class _ZombieAI : MonoBehaviour {
 		
 			case State.Attacking:
 				if(attack.target == null){
-					if(vision.target){
+					if(sightRange.target){
 						aiState = State.Chasing;
-						StartCoroutine(followPlayer());
+						StartCoroutine(followTarget());
 					}else{
 						// target lost go back to roaming
 						aiState = State.Roaming;
@@ -147,19 +147,19 @@ public class _ZombieAI : MonoBehaviour {
 			rb.AddForce(force, ForceMode2D.Impulse);
 	}
 
-	IEnumerator followPlayer(){
-		if(vision.target == null){
+	IEnumerator followTarget(){
+		if(sightRange.target == null){
 			aiState = State.Roaming;
 			yield return false;
 		}	
-		if(vision.target != null){
-			float dist = Vector2.Distance(transform.position, vision.target.position);
+		if(sightRange.target != null){
+			float dist = Vector2.Distance(transform.position, sightRange.target.position);
 			if(dist > maxFollowDistance){
 				aiState = State.Roaming;
-				vision.target = null;
+				sightRange.target = null;
 				yield break;
 			}
-			Vector2 dir = vision.target.position - transform.position;
+			Vector2 dir = sightRange.target.position - transform.position;
 			dir.Normalize();
 			// update rotation
 			transform.rotation = Quaternion.FromToRotation(
@@ -173,10 +173,8 @@ public class _ZombieAI : MonoBehaviour {
 			yield return new WaitForSeconds(1 / updateRate);
 
 			if(aiState == State.Chasing)
-				StartCoroutine(followPlayer());
-		}
-		
-			
+				StartCoroutine(followTarget());
+		}	
 	}
 
 	void Roam(){

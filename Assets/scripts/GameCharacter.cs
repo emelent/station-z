@@ -87,6 +87,7 @@ public class GameCharacter: MonoBehaviour{
 
 	IEnumerator die(){
 		yield return new WaitForEndOfFrame();
+		GM.PlayAudio(dieSound);
 		StopAllCoroutines();
 		GM.KillCharacter(this);
 	}

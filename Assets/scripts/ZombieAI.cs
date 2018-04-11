@@ -11,11 +11,14 @@ public class ZombieAI : MonoBehaviour {
 	public float chaseFactor = 1.2f;
 	public float attackDamage = 10f;
 	public float attackRate = 2f;
+	public string attackSound = "ZombieAttack";
+	public string startChasingSound = "ZombieChase";
 
 
 	[HideInInspector]
 	public SightRange sightRange;
 
+	protected float attackTime = 0f;
 	protected AttackRange attackRange;
 	protected Rigidbody2D rb;
 	protected GameCharacter character;

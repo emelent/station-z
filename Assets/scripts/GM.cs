@@ -64,10 +64,11 @@ public class GM : MonoBehaviour {
 	}
 	void spawnPlayers(){
 		for(int i=0; i < numberOfPlayers; i++){
+			int r = Random.RandomRange(0, SpawnLocations.Length);
 			Transform player = (Transform) Instantiate(
 				PlayerPrefab,
-				SpawnLocations[i].position,
-				SpawnLocations[i].rotation
+				SpawnLocations[r].position,
+				SpawnLocations[r].rotation
 			);
 
 			PlayerController playerCtrl = player.GetComponent<PlayerController>();
@@ -127,34 +128,14 @@ public class GM : MonoBehaviour {
 		deathCount ++;
 	}
 
-
-	void killEnemy(Enemy enemy){
-		// TODO enemy death particles
-		// TODO drop item
-
-		// TODO use an object pool
-		// if(Random.Range(0f, 1f) > dropChance){
-		// 	Transform pickup = DropItems[Random.Range(0, DropItems.Length)];
-		// 	if(pickup.tag  != "Pickup"){
-		// 		pickup.GetComponent<WeaponPickup>()
-		// 			.type = (WeaponPickup.WeaponType) Random.Range(0, 3); 
-		// 	}
-		// 	Instantiate(
-		// 		pickup,
-		// 		enemy.transform.position,
-		// 		Quaternion.identity
-		// 	);
-		// }
-		// enemyCount --;
-		// if(enemyCount == 0){
-		// 	indicator.color = Color.green;
-		// 	float dur = (Time.time - startTime / 1000) / 60;
-		// 	string message = "Time: " + dur.ToString() + " minutes \ndeathCount: " + deathCount.ToString();
-		// 	canvas.gameObject.SetActive(true);
-		// 	text.text = message;
-		// 	respawnPlayers = false;
-		// }
-		// Destroy(enemy.gameObject);
+	void dropRandomItem(Vector3 position){
+		if(Random.Range(0f, 1f) > dropChance){
+			Transform item = DropItemPrefabs[Random.Range(0, DropItemPrefabs.Length)];
+			Instantiate(item, position, Quaternion.identity);
+			print("item dropped");
+		}else{
+			print("no item dropped");
+		}
 	}
 
 	public static void PlayAudio(string name){
@@ -162,11 +143,12 @@ public class GM : MonoBehaviour {
 	}
 
 	public static void KillCharacter(GameCharacter character){
-		print("Killing character");
 		if(character.tag == "Player"){
 			instance.killPlayer(character.GetComponent<PlayerController>());
+			instance.dropRandomItem(character.transform.position);
 		}else if(character.tag == "Enemy"){
-
+			instance.dropRandomItem(character.transform.position);
+			Destroy(character.gameObject);
 		}
 	}
 

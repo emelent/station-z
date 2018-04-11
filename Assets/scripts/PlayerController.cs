@@ -16,16 +16,21 @@ public class PlayerController : MonoBehaviour {
 	private GameCharacter character;
 	private Rigidbody2D rb;
 	private Transform forwardPoint;	
-
+	private SpriteRenderer spriteRenderer;
 	void Awake(){
 		character = GetComponent<GameCharacter>();
 		rb = GetComponent<Rigidbody2D>();
 		forwardPoint = transform.Find("ForwardPoint");
 		SetPlayerNumber(playerNumber);
+		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	void Update(){
 		handleInput();
+		spriteRenderer.maskInteraction = (character.inWater)? 
+			SpriteMaskInteraction.VisibleInsideMask
+			:SpriteMaskInteraction.None;
+		
 	}
 
 	void  handleInput(){

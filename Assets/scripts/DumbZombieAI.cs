@@ -24,8 +24,42 @@ public class DumbZombieAI: ZombieAI {
 
 	void Update(){
 		switch(aiState){
-			case ZombieAI.State.Roaming:
+			case State.Roaming:
+				if(sightRange.target){
+					aiState = State.Chasing;
+					GM.PlayAudio("ZombieChase");
+					StartCoroutine(followTarget());
+				}
 				break;
+
+			case State.Chasing:
+				if(!sightRange.target){
+					// target lost go back to roaming
+					aiState = State.Roaming;
+					moveInRandomDirection();
+				}
+				if(attackRange.target){
+					rb.Sleep();
+					aiState = State.Attacking;
+				}
+				break;
+		
+			case State.Attacking:
+				if(attackRange.target != null){
+					if(Time.time > attackTime)
+						attackTarget();
+				}else{
+					if(sightRange.target){
+						aiState = State.Chasing;
+						StartCoroutine(followTarget());
+					}else{
+						// target lost go back to roaming
+						aiState = State.Roaming;
+						moveInRandomDirection();
+					}
+				}
+				break;
+
 			case State.Frozen:
 				rb.Sleep();
 				break;
@@ -57,6 +91,42 @@ public class DumbZombieAI: ZombieAI {
 		rb.Sleep();
 		yield return new WaitForSeconds(delay);
 		moveInRandomDirection();
+	}
+
+	IEnumerator followTarget(){
+		if(sightRange.target == null){
+			aiState = State.Roaming;
+			yield return false;
+		}	
+
+		if(sightRange.target != null){
+			float dist = Vector2.Distance(transform.position, sightRange.target.position);
+			if(dist > maxFollowDistance){
+				aiState = State.Roaming;
+				sightRange.target = null;
+				yield break;
+			}
+			Vector2 dir = sightRange.target.position - transform.position;
+			dir.Normalize();
+
+			// update rotation
+			transform.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+
+			//  Move the AI
+			rb.velocity = dir * character.movementSpeed * chaseFactor * Time.deltaTime;
+			yield return new WaitForSeconds(1 / updateRate);
+
+			if(aiState == State.Chasing)
+				StartCoroutine(followTarget());
+		}	
+	}
+
+	void attackTarget(){
+		attackTime = Time.time + 1/attackRate;
+		GM.PlayAudio(attackSound);
+		if(attackRange.target){
+			attackRange.target.Hurt(attackDamage, name);
+		}
 	}
 
 	void moveInRandomDirection(){

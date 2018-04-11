@@ -164,7 +164,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680453541626172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0012040138, y: -6.9129467, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4284675140619412}
@@ -385,9 +385,9 @@ MonoBehaviour:
   dieSound: ZombieDie
   healthChangeSprite: {fileID: 21300030, guid: fbf28bcf0a167443e901841a6758b7e1, type: 3}
   knockBackDuration: 0.1
-  movementSpeed: 200
+  movementSpeed: 100
   allowedToMove: 1
-  healthEffectDuration: 0.1
+  healthEffectDuration: 0.2
   hurtSound: ZombieHurt
   hurtColor: {r: 1, g: 1, b: 1, a: 1}
   healSound: ZombieHeal
@@ -411,6 +411,8 @@ MonoBehaviour:
   chaseFactor: 1.2
   attackDamage: 10
   attackRate: 2
+  attackSound: ZombieAttack
+  startChasingSound: ZombieChase
   sightRange: {fileID: 0}
   minChangeDelay: 1
   maxChangeDelay: 2
