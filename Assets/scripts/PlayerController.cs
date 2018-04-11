@@ -78,15 +78,15 @@ public class PlayerController : MonoBehaviour {
 
 	public void EquipItem(Transform itemPrefab){
 		if(!itemPrefab) return;
-		Transform  item = (Transform) Instantiate(itemPrefab, transform);
-		if(item.tag == "Weapon"){
-			EquipWeapon(item.GetComponent<Weapon>());
+		if(itemPrefab.tag == "Weapon"){
+			GM.instance.CreatePlayerWeapon(this, itemPrefab);
 		}
 	}
 
 	public void EquipWeapon(Weapon _weapon){
-		if(weapon)
+		if(weapon){
 			Destroy(weapon.gameObject);
+		}
 		weapon =  _weapon;
 	}
 

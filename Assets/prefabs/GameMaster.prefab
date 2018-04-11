@@ -729,7 +729,7 @@ MonoBehaviour:
     randomPitch: 0
   - name: Uzzi
     clip: {fileID: 8300000, guid: 9180626cedbee47db8216cecf877a7e2, type: 3}
-    volume: 0.27
+    volume: 0.32
     pitch: 0.8
     randomVolume: 0
     randomPitch: 0
