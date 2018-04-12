@@ -33,7 +33,7 @@ public class WaveSpawner : MonoBehaviour {
 	}
 
 	private float searchCountdown = 1f;
-
+	bool autoTargetting = false;
 	private SpawnState state = SpawnState.COUNTING;
 	public SpawnState State
 	{
@@ -96,9 +96,19 @@ public class WaveSpawner : MonoBehaviour {
 		if (searchCountdown <= 0f)
 		{
 			searchCountdown = 1f;
-			if (GameObject.FindGameObjectWithTag("Enemy") == null)
-			{
+			GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+			if (enemies.Length == 0){
 				return false;
+			}else if(enemies.Length < 3 && state == SpawnState.WAITING &&  !autoTargetting){ 
+				// the last few enemies auto target players
+				autoTargetting = true;
+				print("Auto  targeting");
+				GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+				for(int i=0; i < enemies.Length; i++){
+					ZombieAI z = enemies[i].GetComponent<ZombieAI>();
+					z.SetTarget(players[Random.Range(0, players.Length)].transform);
+					
+				}
 			}
 		}
 		return true;
@@ -107,7 +117,7 @@ public class WaveSpawner : MonoBehaviour {
 	IEnumerator SpawnWave(Wave _wave)
 	{
 		state = SpawnState.SPAWNING;
-
+		autoTargetting = false;
 		for (int i = 0; i < _wave.count; i++)
 		{
 			SpawnEnemy(_wave.enemy);

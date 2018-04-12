@@ -45,7 +45,7 @@ public class GM : MonoBehaviour {
 	AudioManager audioManager;
 	float startTime = 0f;
 	int deathCount;
-
+	
 	// Use this for initialization
 	void Start () {
 		if(instance == null){
@@ -141,6 +141,7 @@ public class GM : MonoBehaviour {
 			canvas.gameObject.SetActive(true);
 			text.text = "Time: " + time + " minutes\nDeaths: " + deathCount;
 		}
+		indicator.color =  Color.green;
 	}
 
 	public static void PlayAudio(string name){
