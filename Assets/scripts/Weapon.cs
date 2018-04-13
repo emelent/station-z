@@ -40,10 +40,21 @@ public class Weapon: MonoBehaviour{
 
 	[HideInInspector]
 	public bool canAttack = true;
+	[HideInInspector]
+	public bool isOn = false;
+	public bool hasRecoil = true;
+
+	protected Transform firePoint;
 
 	private static float maxCoolDownScaleX = -1f;
 	private float attackTime;
+	private float playNotReadySoundTime = 0f;
+	private float notReadySoundRate = 2f;
 	private Transform CoolDownGauge;
+	
+	void Awake(){
+		firePoint = transform.Find("FirePoint");
+	}
 
 	void Update(){
 		if(attackRate > 0f)
@@ -74,7 +85,10 @@ public class Weapon: MonoBehaviour{
 
 	public void Attack(string attacker){
 		if(attackCoolDown.refilling){
-			GM.PlayAudio(attackNotReadySound);
+			if(Time.time > playNotReadySoundTime){
+				GM.PlayAudio(attackNotReadySound);
+				playNotReadySoundTime = Time.time + 1/notReadySoundRate;
+			}
 			return;
 		}
 		if(attackRate != 0f)

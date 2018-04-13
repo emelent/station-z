@@ -147,7 +147,7 @@ MonoBehaviour:
     m_Bits: 6656
   attackKnockBack: 1
   attackRate: 0
-  attackDamage: 10
+  attackDamage: 25
   attackSound: Pistol
   attackCoolDown:
     maxCoolDown: 100
@@ -157,6 +157,8 @@ MonoBehaviour:
   attackRefill: 50
   attackNotReadySound: NoAmmo
   canAttack: 1
+  isOn: 0
+  hasRecoil: 1
   range: 10
   cameraShakeAmount: 0.01
   cameraShakeLength: 0.1
@@ -190,6 +192,8 @@ MonoBehaviour:
   attackRefill: 10
   attackNotReadySound: NoAmmo
   canAttack: 1
+  isOn: 0
+  hasRecoil: 1
 --- !u!212 &212147008724176324
 SpriteRenderer:
   m_ObjectHideFlags: 1

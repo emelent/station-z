@@ -6,7 +6,9 @@ BUGS:
 
 TODO:
 	- Switch to object pools
-	
+
+	- weapons should just have an owner then pass that to 
+		the hurt method on the character	
 	- Add other weapons
 
 	- Create zombie death effect

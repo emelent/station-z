@@ -145,9 +145,9 @@ MonoBehaviour:
   whatToHit:
     serializedVersion: 2
     m_Bits: 6656
-  attackKnockBack: 3
+  attackKnockBack: 4
   attackRate: 8
-  attackDamage: 3
+  attackDamage: 8
   attackSound: Uzzi
   attackCoolDown:
     maxCoolDown: 100
@@ -157,6 +157,8 @@ MonoBehaviour:
   attackRefill: 50
   attackNotReadySound: NoAmmo
   canAttack: 1
+  isOn: 0
+  hasRecoil: 1
   range: 10
   cameraShakeAmount: 0.01
   cameraShakeLength: 0.1
@@ -190,6 +192,8 @@ MonoBehaviour:
   attackRefill: 10
   attackNotReadySound: NoAmmo
   canAttack: 1
+  isOn: 0
+  hasRecoil: 1
 --- !u!212 &212147008724176324
 SpriteRenderer:
   m_ObjectHideFlags: 1

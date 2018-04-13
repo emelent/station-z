@@ -419,7 +419,7 @@ MonoBehaviour:
   minRoamDistance: 100
   maxRoamDistance: 400
   updateRate: 2
-  maxFollowDistance: 100
+  maxFollowDistance: 200
 --- !u!198 &198270794834407972
 ParticleSystem:
   m_ObjectHideFlags: 1

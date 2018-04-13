@@ -145,18 +145,20 @@ MonoBehaviour:
   whatToHit:
     serializedVersion: 2
     m_Bits: 6656
-  attackKnockBack: 16
+  attackKnockBack: 14
   attackRate: 0
-  attackDamage: 30
+  attackDamage: 40
   attackSound: Shotgun
   attackCoolDown:
     maxCoolDown: 100
     coolDown: 80
     refilling: 0
-  attackCost: 25
-  attackRefill: 35
+  attackCost: 50
+  attackRefill: 45
   attackNotReadySound: NoAmmo
   canAttack: 1
+  isOn: 0
+  hasRecoil: 1
   range: 10
   cameraShakeAmount: 0.01
   cameraShakeLength: 0.1
@@ -190,6 +192,8 @@ MonoBehaviour:
   attackRefill: 10
   attackNotReadySound: NoAmmo
   canAttack: 1
+  isOn: 0
+  hasRecoil: 1
 --- !u!212 &212147008724176324
 SpriteRenderer:
   m_ObjectHideFlags: 1

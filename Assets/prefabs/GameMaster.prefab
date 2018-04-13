@@ -435,6 +435,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1702433299501650
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4083607808738050}
+  - component: {fileID: 212773503276127130}
+  m_Layer: 0
+  m_Name: Indicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1766556910847950
 GameObject:
   m_ObjectHideFlags: 1
@@ -648,6 +664,19 @@ Transform:
   m_Father: {fileID: 4928620494792728}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4083607808738050
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702433299501650}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 43.92, y: 0.020000458, z: 0.22852266}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4399851113385240}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4092248810504358
 Transform:
   m_ObjectHideFlags: 1
@@ -825,6 +854,7 @@ Transform:
   - {fileID: 4206738343837342}
   - {fileID: 4813591230594408}
   - {fileID: 4704899456296790}
+  - {fileID: 4083607808738050}
   m_Father: {fileID: 4895773978759328}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1121,7 +1151,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 23050fb84cbcf413fb2aa2ec65656081, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.12085839
   m_Pitch: 0.47765198
   Loop: 0
@@ -1201,7 +1231,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 368c67ad0ee774765a334db05f5a8bc7, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 0.5
   Loop: 0
@@ -1281,7 +1311,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d77b5dba80f2b48a286a7c45ef5752e6, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1361,7 +1391,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 805f8e411de9242ff841061d7cfa682f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 0
   Loop: 0
@@ -1441,7 +1471,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5e96eaa5d541948ca94d208d48c3b6e7, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.32
   m_Pitch: 0.5
   Loop: 0
@@ -1521,7 +1551,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 29956964431ee4b5099e2a09bc9862a3, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 0.5
   Loop: 0
@@ -1566,7 +1596,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1590,7 +1620,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &82358205164326268
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1601,7 +1631,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ecc2146bc30534cc2aebdd88dfd7013e, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.17940195
   m_Pitch: 0.39229456
   Loop: 0
@@ -1681,7 +1711,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9180626cedbee47db8216cecf877a7e2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.32
   m_Pitch: 0.8
   Loop: 0
@@ -1761,7 +1791,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8bb3bfabc48a145e8a9b62a52be92caa, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.07
   m_Pitch: 1.17
   Loop: 0
@@ -1841,7 +1871,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 368c67ad0ee774765a334db05f5a8bc7, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 0.93
   Loop: 0
@@ -1921,7 +1951,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d77b5dba80f2b48a286a7c45ef5752e6, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 0.6
   Loop: 0
@@ -2001,7 +2031,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8fdb48b34ddd841b19c08afae651443e, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.29880792
   m_Pitch: 0.99696875
   Loop: 0
@@ -2046,7 +2076,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2070,7 +2100,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &82847108114411178
 AudioSource:
   m_ObjectHideFlags: 1
@@ -2081,7 +2111,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5e96eaa5d541948ca94d208d48c3b6e7, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.18
   m_Pitch: 1.4435883
   Loop: 0
@@ -2126,7 +2156,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2150,7 +2180,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &82984006099793042
 AudioSource:
   m_ObjectHideFlags: 1
@@ -2161,7 +2191,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e6e402f61280b4092bc05feb9878d9f9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 0.76190186
   Loop: 0
@@ -2206,7 +2236,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2230,7 +2260,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!114 &114038161672963144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2274,7 +2304,7 @@ MonoBehaviour:
     randomVolume: 0
     randomPitch: 0
   - name: HealthPickUp
-    clip: {fileID: 8300000, guid: 8bb3bfabc48a145e8a9b62a52be92caa, type: 3}
+    clip: {fileID: 8300000, guid: d32e12915647c4838afc082732aa9737, type: 3}
     volume: 0.07
     pitch: 1.17
     randomVolume: 0
@@ -2303,6 +2333,12 @@ MonoBehaviour:
     pitch: 0.6
     randomVolume: 0
     randomPitch: 0
+  - name: ChainSaw
+    clip: {fileID: 8300000, guid: 766f904caaad44c5793a05324cfdb2d2, type: 3}
+    volume: 0.3
+    pitch: 1.04
+    randomVolume: 0
+    randomPitch: 0
   - name: WeaponPickup
     clip: {fileID: 8300000, guid: d77b5dba80f2b48a286a7c45ef5752e6, type: 3}
     volume: 0.3
@@ -2327,6 +2363,12 @@ MonoBehaviour:
     pitch: 0.5
     randomVolume: 0
     randomPitch: 0
+  - name: HotDang
+    clip: {fileID: 8300000, guid: 81eee772ff0464ef6ab5cd63e3b06203, type: 3}
+    volume: 0.3
+    pitch: 0.78
+    randomVolume: 0
+    randomPitch: 0.058
 --- !u!114 &114868479204761256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2338,11 +2380,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbaa3fa6bdf2401f94b3b961b663881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 0}
+  indicator: {fileID: 212773503276127130}
   canvas: {fileID: 0}
   text: {fileID: 0}
   dropChance: 0.4
-  numberOfPlayers: 3
+  numberOfPlayers: 1
   respawnDelay: 5
   respawnPlayers: 1
   friendlyFire: 1
@@ -2374,6 +2416,7 @@ MonoBehaviour:
   - {fileID: 4182013147428506, guid: 803153b627ffd4f769895970ae6a75c4, type: 2}
   - {fileID: 4859235589520934, guid: 7d1d63c986f9d4c03ab8c85c8d76a1e4, type: 2}
   - {fileID: 4302258318984336, guid: 3878475c75ee54680a0272c38059c1c9, type: 2}
+  - {fileID: 4368735604102942, guid: a6b1ea7a7812b4f67adb903d0ad4a6f1, type: 2}
 --- !u!212 &212070511447839062
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -2718,6 +2761,50 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8a3a4d09e0fa54c64ba885ed07672ba9, type: 3}
   m_Color: {r: 0.101642475, g: 0.503, b: 0.43523827, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!212 &212773503276127130
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702433299501650}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -430235763
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: c5927b729a3d548d1a16d93080606c8a, type: 3}
+  m_Color: {r: 0.64705884, g: 0.007843138, b: 0.007843138, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

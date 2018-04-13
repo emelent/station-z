@@ -11,13 +11,29 @@ public class GM : MonoBehaviour {
 	public class PlayerHUD{
 		public Transform healthGauge;
 		public Transform coolDownGauge;
+		public Text scoreText;
+		public int score = 0;
+		public int deathCount = 0;
+
+		public PlayerHUD(){
+			if(scoreText)
+				scoreText.text = score.ToString();
+		}
+		public void incrementScore(){
+			score ++;
+			if(scoreText)
+				scoreText.text = score.ToString();
+		}
+
+		public int getPoints(){
+			return score - deathCount;
+		}
 	}
 
 
 	const int MAX_PLAYERS = 3;
 
 	public SpriteRenderer indicator;
-	public Canvas canvas;
 	public Text text;
 
 
@@ -135,13 +151,33 @@ public class GM : MonoBehaviour {
 		}
 	}
 
+	string getMVP(){
+		string mvp = "player1";
+		int pts = playerHUD[0].getPoints();
+		for(int i = 1; i < numberOfPlayers;i++){
+			if(playerHUD[i].getPoints() > pts){
+				mvp = "player" + (i + 1).ToString();
+				pts = playerHUD[i].getPoints();
+			}
+		}
+		return mvp;
+	}
+
 	void endGame(){
 		float time = (Time.time - startTime) / 60;
-		if(canvas && text){
-			canvas.gameObject.SetActive(true);
-			text.text = "Time: " + time + " minutes\nDeaths: " + deathCount;
+		if(text){
+			text.gameObject.SetActive(true);
+			text.text = "Time: " + time + " minutes\nDeaths: " + deathCount
+				+ "\nMVP: " + getMVP();
+
 		}
 		indicator.color =  Color.green;
+		respawnPlayers = false;
+	}
+
+	void incrementScore(int playerNumber){
+		print("player number: " + playerNumber);
+		playerHUD[playerNumber - 1].incrementScore();
 	}
 
 	public static void PlayAudio(string name){
@@ -150,9 +186,15 @@ public class GM : MonoBehaviour {
 
 	public static void KillCharacter(GameCharacter character){
 		if(character.tag == "Player"){
+			int playerNum = int.Parse(character.name.Substring(character.name.Length - 1));
+			instance.playerHUD[playerNum - 1].deathCount ++;
 			instance.killPlayer(character.GetComponent<PlayerController>());
 			instance.dropRandomItem(character.transform.position);
 		}else if(character.tag == "Enemy"){
+			string killer = character.killer;
+			if(killer.StartsWith("player")){
+				instance.incrementScore(int.Parse(killer.Substring(killer.Length - 1)));
+			}
 			instance.dropRandomItem(character.transform.position);
 			Destroy(character.gameObject);
 		}

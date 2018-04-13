@@ -54,14 +54,18 @@ public class PlayerController : MonoBehaviour {
 		if(weapon){
 			if(weapon.attackRate > 0f){
 				if(Input.GetButton(pk + "Fire") && weapon.canAttack){
-					if(!weapon.attackCoolDown.refilling)
+					if(!weapon.attackCoolDown.refilling && weapon.hasRecoil)
 						recoil();
 					weapon.Attack(character.name);
+				}else{
+					weapon.isOn = false;
 				}
 			}else if(Input.GetButtonDown(pk + "Fire")){
-					if(!weapon.attackCoolDown.refilling)
+					if(!weapon.attackCoolDown.refilling && weapon.hasRecoil)
 						recoil();
 					weapon.Attack(character.name);
+			}else{
+				weapon.isOn = false;
 			}
 		}
 	}

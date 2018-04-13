@@ -11,12 +11,10 @@ public class WeaponRanged: Weapon{
 	public Transform hitParticlePrefab;
 	public Transform bulletTrailPrefab;
 
-	private Transform firePoint;
 	private Transform muzzleFlash;
 	private Vector3 fakeNormal = new Vector3(9999,9999, 9999);
 
-	void Awake(){
-		firePoint = transform.Find("FirePoint");
+	void Start(){
 		muzzleFlash = transform.Find("MuzzleFlash");
 		if(muzzleFlash)
 			muzzleFlash.gameObject.SetActive(false);
