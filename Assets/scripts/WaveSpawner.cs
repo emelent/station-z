@@ -51,8 +51,7 @@ public class WaveSpawner : MonoBehaviour {
 
 	void Update()
 	{
-		if (state == SpawnState.WAITING)
-		{
+		if (state == SpawnState.WAITING){
 			if (!EnemyIsAlive())
 			{
 				WaveCompleted();
@@ -63,9 +62,9 @@ public class WaveSpawner : MonoBehaviour {
 			}
 		}
 
-		if (waveCountdown <= 0)
-		{
-			waveTitle.gameObject.SetActive(false);
+		if (waveCountdown <= 0){	
+			if(waveTitle)
+				waveTitle.gameObject.SetActive(false);
 			if (state != SpawnState.SPAWNING)
 			{
 				StartCoroutine( SpawnWave ( waves[nextWave] ) );
@@ -73,8 +72,10 @@ public class WaveSpawner : MonoBehaviour {
 		}
 		else
 		{
-			waveTitle.gameObject.SetActive(true);
-			waveTitle.text = "WAVE " + NextWave.ToString() + " IN ...\n" + ((int)waveCountdown).ToString();
+			if(waveTitle){
+				waveTitle.gameObject.SetActive(true);
+				waveTitle.text = "WAVE " + NextWave.ToString() + " IN ...\n" + ((int)waveCountdown).ToString();
+			}
 			waveCountdown -= Time.deltaTime;
 		}
 	}
