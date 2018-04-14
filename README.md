@@ -41,3 +41,7 @@ Shoot: K
 
 
 ![screenshot](./screenshot.png "Screenshot")
+
+
+
+[Play Game]: https://station-z.surge.sh
