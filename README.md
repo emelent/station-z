@@ -44,4 +44,4 @@ Shoot: K
 
 
 
-[Play Game]: https://station-z.surge.sh
+[Play Game](https://station-z.surge.sh)
