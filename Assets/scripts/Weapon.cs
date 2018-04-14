@@ -2,10 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Weapon component
+	Base class for all weapons.
+
+			    Weapon
+			      |
+		---------------------
+		|			        |
+	MeleeWeapon	      RangedWeapon
+
+*/
 public class Weapon: MonoBehaviour{
 
+
+	// Prevents  spamming of attack by adding a sort of cost for an
+	// attack, and a sort of cool down system. So after a certain
+	// amount of attacks, a weapon needs to cool down or "reload"
+	// or whatever.
 	[System.Serializable]
-	public class AttackLimit{
+	public class AttackLimit{ 
 		public float maxCoolDown = 100f;
 		public float coolDown = 100f;
 		public bool refilling = false;

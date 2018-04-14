@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+	Base class for interactable Game Characters.
+	Players and Enemies alike. All the goodies a Game Character
+	needs.
+ */
 [RequireComponent(typeof(HealthSystem))]
 public class GameCharacter: MonoBehaviour{
 	

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This AI roams randomly till it spots a player, then it chases the
+// player in hopes to attack him. 
 public class DumbZombieAI: ZombieAI {
 
 	[Header("Roam State")]
@@ -45,24 +47,21 @@ public class DumbZombieAI: ZombieAI {
 				break;
 		
 			case State.Attacking:
-				if(attackRange.target != null){
-					// if(attackRange.target.gameObject != sightRange.target.gameObject){
-						// aiState = State.Chasing;
+				if(attackRange.target != null){ // still in range of attack? then attack
 					if(Time.time > attackTime)
 						attackTarget();
-				}else{
-					if(sightRange.target){
+				}else{ // out of range to attack
+					if(sightRange.target){ // player is in sight? chase the player
 						aiState = State.Chasing;
 						StartCoroutine(followTarget());
-					}else{
-						// target lost go back to roaming
+					}else{ // player not in range or in sight? go back to roaming
 						aiState = State.Roaming;
 						moveInRandomDirection();
 					}
 				}
 				break;
 
-			case State.Frozen:
+			case State.Frozen: // mainly for debug. stops enemy from doing anything
 				rb.Sleep();
 				break;
 		}
@@ -70,7 +69,7 @@ public class DumbZombieAI: ZombieAI {
 
 	void FixedUpdate(){
 		if(aiState == ZombieAI.State.Roaming){
-			if(roamTravelled > roamDistance){
+			if(roamTravelled > roamDistance){ // change direction when random distance travelled
 				StartCoroutine(pauseThenMoveInRandomDirection());
 			}
 			roamTravelled += rb.velocity.magnitude;  
@@ -79,7 +78,7 @@ public class DumbZombieAI: ZombieAI {
 
 	void OnCollisionEnter2D(Collision2D collision){
 		rb.Sleep();
-		if(collision.collider.tag != "Player"){
+		if(collision.collider.tag != "Player"){ // change direction when colliding with anything except the player
 			roamTravelled =  1f;
 			roamDistance  = 0f;
 			pauseThenMoveInRandomDirection(0.2f);
@@ -96,12 +95,12 @@ public class DumbZombieAI: ZombieAI {
 	}
 
 	IEnumerator followTarget(){
-		if(sightRange.target == null){
+		if(sightRange.target == null){ // if there isn't a target anymore for some reason, go back to roaming
 			aiState = State.Roaming;
 			yield return false;
 		}	
 
-		if(sightRange.target != null){
+		if(sightRange.target != null){ // move towards target..
 			float dist = Vector2.Distance(transform.position, sightRange.target.position);
 			if(dist > maxFollowDistance){
 				aiState = State.Roaming;
@@ -125,6 +124,7 @@ public class DumbZombieAI: ZombieAI {
 
 	void attackTarget(){
 		attackTime = Time.time + 1/attackRate;
+		//  TODO for some reason the attackSound doesn't play
 		GM.PlayAudio(attackSound);
 		if(attackRange.target){
 			attackRange.target.Hurt(attackDamage, name);

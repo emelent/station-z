@@ -4,6 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// This one is in need of refactoring, I added a bunch of new
+// features as soon as I finished refactoring it, as things 
+// sprang up. It handles a lot more than I want to, and that
+// makes it less reusable in other projects. I'll fix it up
+// once I give some thought to its roll.
+
+/* But for now, this handles:
+		Player Spawns and Respawns
+		Killing Characters
+		Keeping Player Scores
+		Instantiating Equipped Weapons
+		Dropping Items when Characters are killed
+		Starting, Ending and Restarting the game		
+*/
 public class GM : MonoBehaviour {
 	public static GM instance;
 

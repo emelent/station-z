@@ -1,4 +1,7 @@
-﻿// using System.Collections;
+﻿// Uncomment this to use the water autotiling
+// comment it to build, coz unity complains about
+// the "using UnityEditor" namespace during builds
+// using System.Collections;
 // using System.Collections.Generic;
 // using UnityEditor;
 // using UnityEngine;
