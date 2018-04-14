@@ -147,7 +147,7 @@ MonoBehaviour:
     m_Bits: 6656
   attackKnockBack: 14
   attackRate: 0
-  attackDamage: 40
+  attackDamage: 35
   attackSound: Shotgun
   attackCoolDown:
     maxCoolDown: 100

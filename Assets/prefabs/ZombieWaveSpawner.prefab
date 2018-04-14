@@ -54,8 +54,17 @@ MonoBehaviour:
   waves:
   - name: Zombies
     enemy: {fileID: 4320901227396152, guid: 4ad01147ee1074175b70136b08a1da73, type: 2}
-    count: 1
+    count: 15
     rate: 1
+  - name: Meh  We Can Do This
+    enemy: {fileID: 4320901227396152, guid: a96bee2004d8c43aab7663ec9502395d, type: 2}
+    count: 20
+    rate: 1
+  - name: Time To Die
+    enemy: {fileID: 4320901227396152, guid: b430816f0cddb4fbb9c569325382ea04, type: 2}
+    count: 30
+    rate: 1
+  waveTitle: {fileID: 0}
   spawnPoints:
   - {fileID: 0}
   - {fileID: 0}

@@ -147,7 +147,7 @@ MonoBehaviour:
     m_Bits: 6656
   attackKnockBack: 1
   attackRate: 0
-  attackDamage: 25
+  attackDamage: 20
   attackSound: Pistol
   attackCoolDown:
     maxCoolDown: 100

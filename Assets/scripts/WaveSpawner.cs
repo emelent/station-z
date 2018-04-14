@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+
 
 public class WaveSpawner : MonoBehaviour {
 
@@ -17,6 +19,8 @@ public class WaveSpawner : MonoBehaviour {
 
 
 	public Wave[] waves;
+	public Text waveTitle;
+
 	private int nextWave = 0;
 	public int NextWave
 	{
@@ -61,6 +65,7 @@ public class WaveSpawner : MonoBehaviour {
 
 		if (waveCountdown <= 0)
 		{
+			waveTitle.gameObject.SetActive(false);
 			if (state != SpawnState.SPAWNING)
 			{
 				StartCoroutine( SpawnWave ( waves[nextWave] ) );
@@ -68,6 +73,8 @@ public class WaveSpawner : MonoBehaviour {
 		}
 		else
 		{
+			waveTitle.gameObject.SetActive(true);
+			waveTitle.text = "WAVE " + NextWave.ToString() + " IN ...\n" + ((int)waveCountdown).ToString();
 			waveCountdown -= Time.deltaTime;
 		}
 	}
@@ -99,7 +106,7 @@ public class WaveSpawner : MonoBehaviour {
 			GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 			if (enemies.Length == 0){
 				return false;
-			}else if(enemies.Length < 3 && state == SpawnState.WAITING &&  !autoTargetting){ 
+			}else if(enemies.Length < 7 && state == SpawnState.WAITING &&  !autoTargetting){ 
 				// the last few enemies auto target players
 				autoTargetting = true;
 				print("Auto  targeting");

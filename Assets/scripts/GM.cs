@@ -30,9 +30,6 @@ public class GM : MonoBehaviour {
 		}
 	}
 
-
-	const int MAX_PLAYERS = 3;
-
 	public SpriteRenderer indicator;
 	public Text text;
 
@@ -40,8 +37,6 @@ public class GM : MonoBehaviour {
 	[Range(0f, 1f)]
 	public float dropChance = 0.6f;
 
-	[Range(1, MAX_PLAYERS)]
-	public uint numberOfPlayers = MAX_PLAYERS;
 	public float respawnDelay = 4f;	
 	public bool respawnPlayers = true;
 	public bool friendlyFire = true;
@@ -50,7 +45,7 @@ public class GM : MonoBehaviour {
 	public Transform[] SpawnLocations;
 
 	[SerializeField]
-	PlayerHUD[] playerHUD = new PlayerHUD[MAX_PLAYERS];
+	PlayerHUD[] playerHUD = new PlayerHUD[GameSettings.MAX_PLAYERS];
 
 	[Header("Prefabs")]
 	public Transform PlayerPrefab;
@@ -76,10 +71,12 @@ public class GM : MonoBehaviour {
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.Backspace)){
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);	
+		}else if(Input.GetKeyDown(KeyCode.Escape)){
+			SceneManager.LoadScene(0);
 		}
 	}
 	void spawnPlayers(){
-		for(int i=0; i < numberOfPlayers; i++){
+		for(int i=0; i < GameSettings.GetInstance().numberOfPlayers; i++){
 			int r = Random.Range(0, SpawnLocations.Length);
 			Transform player = (Transform) Instantiate(
 				PlayerPrefab,
@@ -92,10 +89,10 @@ public class GM : MonoBehaviour {
 			GameCharacter character = player.GetComponent<GameCharacter>();
 			
 
-			// enable gauges
+			// enable HUD
 			playerHUD[i].healthGauge.gameObject.SetActive(true);
 			playerHUD[i].coolDownGauge.gameObject.SetActive(true);
-
+			playerHUD[i].scoreText.gameObject.SetActive(true);
 			// link health bar
 			character.healthSystem.LinkHealthBar(
 				playerHUD[i].healthGauge.Find("Bar")
@@ -124,7 +121,6 @@ public class GM : MonoBehaviour {
 
 
 	void killPlayer(PlayerController playerCtrl){
-		print("killing player");
 		playerCtrl.gameObject.SetActive(false);
 		if(respawnPlayers)
 			StartCoroutine(respawnPlayer(playerCtrl));
@@ -154,7 +150,7 @@ public class GM : MonoBehaviour {
 	string getMVP(){
 		string mvp = "player1";
 		int pts = playerHUD[0].getPoints();
-		for(int i = 1; i < numberOfPlayers;i++){
+		for(int i = 1; i < GameSettings.GetInstance().numberOfPlayers;i++){
 			if(playerHUD[i].getPoints() > pts){
 				mvp = "player" + (i + 1).ToString();
 				pts = playerHUD[i].getPoints();
@@ -163,12 +159,25 @@ public class GM : MonoBehaviour {
 		return mvp;
 	}
 
+	string getMostDeaths(){
+		string mostDeaths = "player1";
+		int deaths = playerHUD[0].deathCount;
+		for(int i = 1; i < GameSettings.GetInstance().numberOfPlayers;i++){
+			if(playerHUD[i].deathCount > deaths){
+				mostDeaths = "player" + (i + 1).ToString();
+				deaths = playerHUD[i].deathCount;
+			}
+		}
+		return mostDeaths;
+	}
+
 	void endGame(){
 		float time = (Time.time - startTime) / 60;
 		if(text){
 			text.gameObject.SetActive(true);
 			text.text = "Time: " + time + " minutes\nDeaths: " + deathCount
-				+ "\nMVP: " + getMVP();
+				+ "\nMVP: " + getMVP()
+				+ "\nMOST DEATHS: " + getMostDeaths();
 
 		}
 		indicator.color =  Color.green;
@@ -176,7 +185,6 @@ public class GM : MonoBehaviour {
 	}
 
 	void incrementScore(int playerNumber){
-		print("player number: " + playerNumber);
 		playerHUD[playerNumber - 1].incrementScore();
 	}
 
